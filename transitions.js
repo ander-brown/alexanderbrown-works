@@ -7,6 +7,43 @@
     document.body.style.opacity = '1';
   });
 
+  // MOBILE: only the masonry item closest to screen centre is in colour
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    setTimeout(function () {
+      var items = Array.from(document.querySelectorAll('.masonry-item'));
+      if (!items.length) return;
+
+      var activeItem = null;
+
+      function updateColour() {
+        var midY = window.scrollY + window.innerHeight / 2;
+        var closest = null;
+        var closestDist = Infinity;
+
+        items.forEach(function (item) {
+          var rect = item.getBoundingClientRect();
+          var itemMid = window.scrollY + rect.top + rect.height / 2;
+          var dist = Math.abs(itemMid - midY);
+          if (dist < closestDist) { closestDist = dist; closest = item; }
+        });
+
+        if (closest === activeItem) return;
+        activeItem = closest;
+
+        items.forEach(function (item) {
+          var media = item.querySelectorAll('img, video');
+          var isActive = item === closest;
+          media.forEach(function (el) {
+            el.style.filter = isActive ? 'grayscale(0)' : 'grayscale(1)';
+          });
+        });
+      }
+
+      window.addEventListener('scroll', updateColour, { passive: true });
+      updateColour();
+    }, 500);
+  }
+
   // EXIT: fade body content out, then navigate
   document.querySelectorAll('a[href]').forEach(function (a) {
     var href = a.getAttribute('href') || '';
