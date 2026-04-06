@@ -590,10 +590,137 @@ img, video {
 }
 
 @media (max-width: 600px) {
-  :root { --margin: 20px; }
-  .hero-media { height: 75vw; }
+  :root { --margin: 28px; }
 
-  .lightbox__media-wrap { max-width: 92vw; }
+  /* ══════════════════════════════════════════════
+     PROJECT PAGE — MOBILE REDESIGN
+     Override all per-page <style> blocks that
+     set min-height, transform, absolute video, etc.
+  ══════════════════════════════════════════════ */
+
+  .page-layout {
+    padding-top: calc(var(--header-h) + 36px);
+    padding-bottom: 80px;
+  }
+
+  /* Hide client sketches */
+  .hero-sketch-item { display: none !important; }
+
+  /* Meta */
+  .hero-meta-bar { padding-bottom: 12px; }
+
+  /* Title */
+  .hero-title {
+    font-size: 30px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Hero video: reset ALL per-page overrides ──
+     min-height, transform, position:absolute, width:120%
+     are all cancelled so the video sits naturally */
+  .hero-media {
+    position: static !important;
+    min-height: unset !important;
+    height: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+    margin-top: 28px !important;
+    align-self: auto !important;
+  }
+  .hero-media video,
+  .hero-media img {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    bottom: auto !important;
+    right: auto !important;
+  }
+
+  /* ── Project text: pull out of fixed overlay, flow naturally ── */
+  .project-overlay {
+    position: static !important;
+    width: 100% !important;
+    padding: 40px 0 0 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .sidebar-text {
+    font-size: 11px;
+    line-height: 1.9;
+  }
+
+  /* Barrowgate sticky sidebar — flow inline */
+  .page-sidebar {
+    padding-top: 40px !important;
+    margin-top: 0 !important;
+  }
+  .sidebar-sticky {
+    position: static !important;
+  }
+
+  /* ── Image grid: reset 240px desktop margin ── */
+  .project-grid {
+    margin-top: 48px !important;
+  }
+
+  /* Individual blocks — clean, no card effect */
+  .project-block {
+    padding: 0 !important;
+    background: none !important;
+  }
+
+  /* Images — full frame, natural aspect ratio */
+  .img-block img,
+  .img-block video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  /* Nobelvägen/Hammersmith: reset their margin-top on hero */
+  .hero-media[style] {
+    margin-top: 28px !important;
+    transform: none !important;
+  }
+
+  /* ══════════════════════════════════════════════
+     HOMEPAGE WORKS GRID — MOBILE
+  ══════════════════════════════════════════════ */
+  .masonry-grid {
+    margin-top: calc(var(--header-h) + 44px);
+  }
+
+  .masonry-item { padding: 0; background: none; }
+
+  .item-media {
+    overflow: visible;
+    background: none;
+  }
+  .item-media img,
+  .item-media video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Captions always visible on touch */
+  .item-caption {
+    opacity: 1;
+    padding-top: 10px;
+  }
+
+  /* ══════════════════════════════════════════════
+     LIGHTBOX — MOBILE
+  ══════════════════════════════════════════════ */
+  .lightbox__media-wrap { max-width: 92vw; max-height: 80vh; }
   .lightbox__img,
-  .lightbox__video { max-width: 92vw; }
+  .lightbox__video { max-width: 92vw; max-height: 80vh; }
+  .lightbox__arrow { padding: 24px 16px; font-size: 28px; }
 }

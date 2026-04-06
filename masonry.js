@@ -20,8 +20,8 @@
     {
       selector:     '.project-grid',
       itemSelector: '.project-block',
-      gap:          140,
-      rowAligned:   true,          /* aligned row tops for project pages */
+      rowAligned:   true,
+      getGap: function (w) { return w < 600 ? 48 : 140; },
       getCols: function (w) {
         if (w < 600) return 1;
         if (w < 900) return 2;
@@ -31,8 +31,8 @@
     {
       selector:     '.masonry-grid',
       itemSelector: '.masonry-item',
-      gap:          140,
-      rowAligned:   false,         /* organic stagger for homepage */
+      rowAligned:   false,
+      getGap: function (w) { return w < 600 ? 48 : 140; },
       getCols: function (w) {
         if (w < 600) return 1;
         if (w < 900) return 2;
@@ -52,7 +52,7 @@
 
     var items = Array.from(grid.querySelectorAll(config.itemSelector));
     var cols  = config.getCols(width);
-    var GAP   = config.gap;
+    var GAP   = config.getGap(width);
     var colW  = Math.floor((width - (cols - 1) * GAP) / cols);
 
     /* Pass 1 — set widths so items reflow to their correct heights */

@@ -311,15 +311,18 @@
        RESPONSIVE
     ══════════════════════════════════════════════════════ */
     @media (max-width: 900px) {
-      .ab-hero { padding: 64px var(--margin) 80px; }
-      .ab-hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .ab-hero__photo { height: 52vw; }
+      .ab-hero { padding: 40px var(--margin) 80px; min-height: unset; justify-content: flex-start; }
+      .ab-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .ab-hero__photo { height: 52vw; margin-left: 0; width: 100%; }
       .timeline-entry { grid-template-columns: 1fr; gap: 12px; }
+      .ab-section-label { position: static; transform: none; margin: 40px auto 0; display: block; text-align: center; }
     }
 
     @media (max-width: 600px) {
       .skill-logo { width: 80px; }
       .skill-row { gap: 16px; }
+      .ab-works-cta { margin-top: 40px; }
+      .timeline-entry { padding: 32px 0; }
     }
 
   </style>
