@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexander Brown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Intro overlay ───────────────────────────────────────── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    #intro-stage {
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Each word is a flex container so letters sit side-by-side */
+    .intro-word {
+      display: flex;
+      align-items: baseline;
+      overflow: hidden;
+    }
+
+    #intro-space {
+      display: inline-block;
+      width: 0.5ch;
+      flex-shrink: 0;
+      transition: width 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    /* Individual letter spans */
+    .intro-letter {
+      display: inline-block;
+      transition: width 0.45s cubic-bezier(0.76, 0, 0.24, 1),
+                  opacity 0.3s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    /* Page content hidden until animation done */
+    #page-content {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #page-content.revealed {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Intro animation overlay ─────────────────────────── -->
+  <div id="intro">
+    <div id="intro-stage">
+      <div class="intro-word" id="word-alexander"></div>
+      <div id="intro-space">&nbsp;</div>
+      <div class="intro-word" id="word-brown"></div>
+    </div>
+  </div>
+
+  <!-- ── Normal page content ─────────────────────────────── -->
+  <div id="page-content">
+
+    <header class="site-header">
+      <a href="index.html" class="site-title">AB</a>
+      <nav class="site-nav">
+        <a href="works.html" class="nav-link is-active">Works</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </header>
+
+    <main class="masonry-grid">
+
+      <!-- 1 — Hammersmith 2016 -->
+      <div class="masonry-item">
+        <a href="project.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Hammersmith/HG time lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Hammersmith</span>
+            <span class="item-year">2016</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 2 — Barrowgate 2016 -->
+      <div class="masonry-item">
+        <a href="barrowgate.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Barrowgate/B Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Barrowgate</span>
+            <span class="item-year">2016</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 3 — Krets 2019 -->
+      <div class="masonry-item">
+        <a href="krets.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Krets/Krets Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Krets</span>
+            <span class="item-year">2019</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 4 — Lyavägen 2020 -->
+      <div class="masonry-item">
+        <a href="lyavagen.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Lyavägen/L Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Lyavägen</span>
+            <span class="item-year">2020</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 5 — Hjörtvägen 2020 -->
+      <div class="masonry-item">
+        <a href="hjortvagen.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Hjörtvägen/Hv Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Hjörtvägen</span>
+            <span class="item-year">2020</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 6 — Karlskronaplan 2021 -->
+      <div class="masonry-item">
+        <a href="karlskronaplan.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Karlskronaplan/K Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Karlskronaplan</span>
+            <span class="item-year">2021</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 7 — Sainfoin 2021 -->
+      <div class="masonry-item">
+        <a href="sainfoin.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Sainfoin/S Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Sainfoin</span>
+            <span class="item-year">2021</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 8 — Nobelvägen 2022 -->
+      <div class="masonry-item">
+        <a href="nobelvagen.html" class="item-link">
+          <div class="item-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="Assests/Nobelvägen/N Time Lapse.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item-caption">
+            <span class="item-title">Nobelvägen</span>
+            <span class="item-year">2022</span>
+          </div>
+        </a>
+      </div>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Alexander Brown</span>
+    </footer>
+
+  </div><!-- /page-content -->
+
+  <script src="masonry.js"></script>
+  <script src="transitions.js"></script>
+
+  <script>
+  (function () {
+
+    var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var SCRAMBLE_DURATION = 900;   // ms total scramble per letter
+    var SCRAMBLE_INTERVAL = 50;    // ms between scramble ticks
+    var STAGGER = 60;              // ms between each letter starting its scramble
+
+    var WORD_A = 'ALEXANDER';
+    var WORD_B = 'BROWN';
+
+    var wA = document.getElementById('word-alexander');
+    var wB = document.getElementById('word-brown');
+    var sp = document.getElementById('intro-space');
+
+    // ── 1. Build letter spans ─────────────────────────────────
+    function buildLetters(word, container) {
+      var spans = [];
+      for (var i = 0; i < word.length; i++) {
+        var s = document.createElement('span');
+        s.className = 'intro-letter';
+        s.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+        // measure width after append
+        container.appendChild(s);
+        spans.push(s);
+      }
+      return spans;
+    }
+
+    var spansA = buildLetters(WORD_A, wA);
+    var spansB = buildLetters(WORD_B, wB);
+
+    // ── 2. Scramble each letter, then settle ─────────────────
+    function scrambleLetter(span, target, startDelay) {
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          var elapsed = 0;
+          var interval = setInterval(function () {
+            elapsed += SCRAMBLE_INTERVAL;
+            if (elapsed >= SCRAMBLE_DURATION) {
+              clearInterval(interval);
+              span.textContent = target;
+              resolve();
+            } else {
+              // Bias toward the real letter as we approach the end
+              var progress = elapsed / SCRAMBLE_DURATION;
+              if (Math.random() < progress * progress) {
+                span.textContent = target;
+              } else {
+                span.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+              }
+            }
+          }, SCRAMBLE_INTERVAL);
+        }, startDelay);
+      });
+    }
+
+    // Scramble all letters across both words
+    var allPromises = [];
+    for (var i = 0; i < spansA.length; i++) {
+      allPromises.push(scrambleLetter(spansA[i], WORD_A[i], i * STAGGER));
+    }
+    for (var j = 0; j < spansB.length; j++) {
+      allPromises.push(scrambleLetter(spansB[j], WORD_B[j], (spansA.length + j) * STAGGER));
+    }
+
+    // ── 3. After scramble: collapse words to A and B ─────────
+    Promise.all(allPromises).then(function () {
+
+      // Short pause so "ALEXANDER BROWN" reads fully
+      return new Promise(function (r) { setTimeout(r, 500); });
+
+    }).then(function () {
+
+      // Measure each letter's natural width, then animate collapse
+      // For ALEXANDER: keep A[0], collapse A[1..8] to width 0
+      // For BROWN:     keep B[0], collapse B[1..4] to width 0
+      // Also collapse the space
+
+      // First: fix widths explicitly so CSS transition works
+      var allSpans = spansA.concat(spansB);
+      allSpans.forEach(function (s) {
+        s.style.width = s.getBoundingClientRect().width + 'px';
+      });
+      var spaceW = sp.getBoundingClientRect().width;
+      sp.style.width = spaceW + 'px';
+
+      // Force reflow
+      void document.body.offsetWidth;
+
+      // Now transition: collapse trailing letters and space
+      var dur = '0.55s';
+      var ease = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
+      for (var k = 1; k < spansA.length; k++) {
+        spansA[k].style.transition = 'width ' + dur + ' ' + ease + ', opacity 0.3s ease';
+        spansA[k].style.width = '0';
+        spansA[k].style.opacity = '0';
+      }
+      sp.style.transition = 'width ' + dur + ' ' + ease;
+      sp.style.width = '0';
+
+      for (var m = 1; m < spansB.length; m++) {
+        spansB[m].style.transition = 'width ' + dur + ' ' + ease + ', opacity 0.3s ease';
+        spansB[m].style.width = '0';
+        spansB[m].style.opacity = '0';
+      }
+
+      // Wait for collapse
+      return new Promise(function (r) { setTimeout(r, 650); });
+
+    }).then(function () {
+
+      // ── 4. Slide A and B together ─────────────────────────
+      // At this point we have [A] [B] with the space collapsed.
+      // They're already adjacent since space = 0. Good.
+      // Brief pause, then swoosh to header.
+
+      return new Promise(function (r) { setTimeout(r, 200); });
+
+    }).then(function () {
+
+      // ── 5. Swoosh "AB" to top-left header position ────────
+      var intro   = document.getElementById('intro');
+      var stage   = document.getElementById('intro-stage');
+
+      // Target: where the real .site-title "AB" will live
+      var headerH = 54;
+      var margin  = 88;
+      // Stage current rect (centred on screen)
+      var stageRect = stage.getBoundingClientRect();
+
+      // Target position: top-left of header (same as .site-title)
+      // The header logo is at: left = margin, vertically centred in headerH
+      var targetX = margin;
+      var targetY = headerH / 2;    // centre of header
+      var targetFontSize = 24;      // px — matches .site-title
+
+      // Current stage centre-left baseline
+      var fromX = stageRect.left;
+      var fromY = stageRect.top + stageRect.height / 2;
+
+      // We'll use a clone positioned fixed, animate it, then reveal real content
+      var clone = document.createElement('div');
+      clone.textContent = 'AB';
+      clone.style.cssText = [
+        'position:fixed',
+        'top:' + (fromY - stageRect.height / 2) + 'px',
+        'left:' + fromX + 'px',
+        'font-family:Montserrat,"Helvetica Neue",Arial,sans-serif',
+        'font-size:24px',
+        'font-weight:700',
+        'text-transform:uppercase',
+        'color:#000',
+        'z-index:10000',
+        'pointer-events:none',
+        'transition:top 0.65s cubic-bezier(0.76,0,0.24,1), left 0.65s cubic-bezier(0.76,0,0.24,1)',
+        'line-height:1'
+      ].join(';');
+
+      document.body.appendChild(clone);
+
+      // Hide the intro stage
+      stage.style.opacity = '0';
+
+      // Force reflow then animate clone to header position
+      void clone.offsetWidth;
+
+      // Target: vertically centred in header (54px tall), left = 88px
+      var cloneH = clone.getBoundingClientRect().height;
+      clone.style.top  = ((headerH - cloneH) / 2) + 'px';
+      clone.style.left = margin + 'px';
+
+      // After move completes, fade out overlay, reveal page
+      setTimeout(function () {
+
+        // Fade out the white overlay
+        intro.style.transition = 'opacity 0.5s ease';
+        intro.style.opacity = '0';
+
+        // Reveal page content
+        document.getElementById('page-content').classList.add('revealed');
+
+        // Once overlay is gone, remove clone (real header AB takes over)
+        setTimeout(function () {
+          intro.remove();
+          clone.remove();
+        }, 600);
+
+      }, 700);
+
+    });
+
+  }());
+  </script>
+
+</body>
+</html>

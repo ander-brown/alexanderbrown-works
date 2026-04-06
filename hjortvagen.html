@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hjörtvägen — Alexander Brown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Hjörtvägen — wider video column + landscape video (matches Sainfoin / Lyavägan layout) */
+    .page-layout { grid-template-columns: 2fr 3fr 240px; }
+
+    .hero-media {
+      align-self: start;
+      position: relative;
+      min-height: 700px;
+      transform: translateY(-28px);
+      overflow: visible;
+    }
+    .hero-media video {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 120%;
+      height: auto;
+    }
+
+    /* Sidebar text sticky through the full masonry scroll */
+    .sidebar-sticky {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: calc(var(--header-h) + 80px);
+    }
+
+    /* Gap before the image grid */
+    .project-grid { margin-top: 240px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="site-title">AB</a>
+    <nav class="site-nav">
+      <a href="works.html" class="nav-link is-active">Works</a>
+      <a href="about.html" class="nav-link">About</a>
+    </nav>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- Row 1: meta bar (cols 1–2) -->
+    <div class="hero-meta-bar">
+      <ul class="hero-meta">
+        <li>2020</li>
+        <li>Halmstad, Sweden</li>
+        <li>Individual</li>
+      </ul>
+    </div>
+
+    <!-- Row 2, col 1: title -->
+    <div class="hero-left">
+      <h1 class="hero-title">Hjörtvägen</h1>
+    </div>
+
+    <!-- Row 2, col 2: landscape video -->
+    <div class="hero-media">
+      <video autoplay muted loop playsinline>
+        <source src="Assets/Hjortvagen/Hv Time Lapse.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Row 2, col 3: client sketch — bottom-aligned with video -->
+    <div class="hero-sketch-item">
+      <img src="Assets/Hjortvagen/Hv Client Sketch.png" alt="Client sketch">
+    </div>
+
+    <!-- Row 3, cols 1–2: masonry grid -->
+    <main class="project-grid">
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Photo Existing.png">
+          <img src="Assets/Hjortvagen/Hv Photo Existing.png" alt="Existing building" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Site Analysis.png">
+          <img src="Assets/Hjortvagen/Hv Site Analysis.png" alt="Site analysis" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Concept Sketch.png">
+          <img src="Assets/Hjortvagen/Hv Concept Sketch.png" alt="Concept sketch" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Plans.png">
+          <img src="Assets/Hjortvagen/Hv Plans.png" alt="Plans" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Materials.jpg">
+          <img src="Assets/Hjortvagen/Hv Materials.jpg" alt="Materials" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv Model.jpg">
+          <img src="Assets/Hjortvagen/Hv Model.jpg" alt="Model" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv External Front.jpg">
+          <img src="Assets/Hjortvagen/Hv External Front.jpg" alt="External — front" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hjortvagen/Hv External Rear.jpg">
+          <img src="Assets/Hjortvagen/Hv External Rear.jpg" alt="External — rear" loading="lazy">
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Col 3: text sticky through scroll -->
+    <aside class="page-sidebar">
+      <div class="sidebar-sticky">
+        <p class="sidebar-text">
+          Designed for a couple building a home together after finding love again, this project reworks a 1920s mansard-roofed villa in central Halmstad under strict planning constraints. The approach establishes a clear distinction between old and new, preserving the street-facing elevations while introducing carefully considered interventions elsewhere. A new entrance is subtly repositioned and treated as secondary to comply with regulations.
+        </p>
+        <p class="sidebar-text">
+          Internally, the layout is restructured to feel more open and intuitive, with slight level changes used to define different zones within the home. The design draws on a restrained material palette and strengthens the connection to the south-west facing garden, bringing light and views deeper into the plan. The result is a sensitive transformation that balances regulatory constraints with a more generous and contemporary way of living.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer class="site-footer">
+    <span>© 2026 Alexander Brown</span>
+  </footer>
+
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox__backdrop" id="lb-backdrop"></div>
+    <div class="lightbox__stage">
+      <div class="lightbox__media-wrap" id="lb-media-wrap"></div>
+    </div>
+    <button class="lightbox__close" id="lb-close" aria-label="Close">Close ×</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" id="lb-prev" aria-label="Previous">&#8249;</button>
+    <button class="lightbox__arrow lightbox__arrow--next" id="lb-next" aria-label="Next">&#8250;</button>
+    <div class="lightbox__counter" id="lb-counter"></div>
+  </div>
+
+  <script src="masonry.js"></script>
+  <script src="transitions.js"></script>
+  <script>
+    (function () {
+      var blocks  = Array.from(document.querySelectorAll('.project-grid .img-block'))
+                      .filter(function (b) { return !b.hasAttribute('data-no-lightbox'); });
+      var lb      = document.getElementById('lightbox');
+      var wrap    = document.getElementById('lb-media-wrap');
+      var counter = document.getElementById('lb-counter');
+      var current = 0;
+
+      var items = blocks.map(function (b) {
+        return { type: b.getAttribute('data-type'), src: b.getAttribute('data-src') };
+      });
+
+      function open(idx) {
+        current = idx;
+        render();
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        var v = wrap.querySelector('video');
+        if (v) v.pause();
+        wrap.innerHTML = '';
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      function render() {
+        wrap.innerHTML = '';
+        var item = items[current];
+        if (item.type === 'video') {
+          var vid = document.createElement('video');
+          vid.className   = 'lightbox__video';
+          vid.autoplay    = true;
+          vid.muted       = true;
+          vid.loop        = true;
+          vid.playsInline = true;
+          var src = document.createElement('source');
+          src.src  = item.src;
+          src.type = 'video/mp4';
+          vid.appendChild(src);
+          wrap.appendChild(vid);
+        } else {
+          var img = document.createElement('img');
+          img.className = 'lightbox__img';
+          img.src = item.src;
+          wrap.appendChild(img);
+        }
+        counter.textContent = (current + 1) + '\u2002/\u2002' + items.length;
+      }
+
+      function prev() { current = (current - 1 + items.length) % items.length; render(); }
+      function next() { current = (current + 1) % items.length; render(); }
+
+      blocks.forEach(function (b, i) {
+        b.addEventListener('click', function () { open(i); });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-backdrop').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function (e) { e.stopPropagation(); prev(); });
+      document.getElementById('lb-next').addEventListener('click', function (e) { e.stopPropagation(); next(); });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('is-open')) return;
+        if (e.key === 'Escape')      close();
+        if (e.key === 'ArrowLeft')   prev();
+        if (e.key === 'ArrowRight')  next();
+      });
+    }());
+  </script>
+
+</body>
+</html>

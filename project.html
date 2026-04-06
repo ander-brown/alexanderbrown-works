@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hammersmith — Alexander Brown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero-media { align-self: start; margin-top: 0; }
+    .hero-media video { height: auto; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="site-title">AB</a>
+    <nav class="site-nav">
+      <a href="works.html" class="nav-link is-active">Works</a>
+      <a href="about.html" class="nav-link">About</a>
+    </nav>
+  </header>
+
+  <!-- ── Flat 3-column grid: title | video | sidebar ── -->
+  <div class="page-layout">
+
+    <!-- Row 1: meta bar (cols 1–2) -->
+    <div class="hero-meta-bar">
+      <ul class="hero-meta">
+        <li>2016</li>
+        <li>London, UK</li>
+        <li>Collaboration</li>
+      </ul>
+    </div>
+
+    <!-- Row 2, col 1: title -->
+    <div class="hero-left">
+      <h1 class="hero-title">Hammersmith</h1>
+    </div>
+
+    <!-- Row 2, col 2: video — sits at top of page -->
+    <div class="hero-media">
+      <video autoplay muted loop playsinline>
+        <source src="Assets/Hammersmith/HG time lapse.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Row 2, col 3: sketch — bottom-aligned with video -->
+    <div class="hero-sketch-item">
+      <img src="Assets/Hammersmith/Hammersmith Client .png" alt="Client sketch">
+    </div>
+
+    <!-- Row 3, cols 1–2: masonry grid -->
+    <main class="project-grid">
+
+      <!-- Light model -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG light model.jpg">
+          <img src="Assets/Hammersmith/HG light model.jpg" alt="Light model" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Material study -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG Material 2.png">
+          <img src="Assets/Hammersmith/HG Material 2.png" alt="Material study" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Section drawing -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG section.png">
+          <img src="Assets/Hammersmith/HG section.png" alt="Section" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Floor plans -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG plans.png">
+          <img src="Assets/Hammersmith/HG plans.png" alt="Floor plans" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Interior — window -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG photo internal window.jpg">
+          <img src="Assets/Hammersmith/HG photo internal window.jpg" alt="Interior — window" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Interior — glass -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG photo internal glass.jpg">
+          <img src="Assets/Hammersmith/HG photo internal glass.jpg" alt="Interior — glazed strip" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Rear evening exterior -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG photo rear evening.jpg">
+          <img src="Assets/Hammersmith/HG photo rear evening.jpg" alt="Rear exterior — evening" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Interior — library -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Hammersmith/HG photo internal library.jpg">
+          <img src="Assets/Hammersmith/HG photo internal library.jpg" alt="Interior — library" loading="lazy">
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Col 3 placeholder keeps grid structure intact -->
+    <aside class="page-sidebar"></aside>
+
+  </div>
+
+  <!-- Project text overlay — direct body child so mix-blend-mode works -->
+  <div class="project-overlay" id="project-overlay">
+    <p class="sidebar-text">
+      Designed for a young family of four, this project transforms the ground
+      and semi-basement levels of a London terrace into a brighter, more
+      connected home centred around everyday family life. The brief was to turn
+      the lower ground floor into a place the family actually wanted to spend
+      time in — not just a secondary space, but the heart of the house. A glazed
+      opening was introduced within the existing structure, pulling daylight deep
+      into the plan and creating a generous double-height volume.
+    </p>
+    <p class="sidebar-text">
+      A stepped sequence from the entrance leads down past a half-level library
+      into a new kitchen and dining space that opens directly onto the garden.
+      The result is a home that feels lighter, more open and more intuitive to
+      move through, with the basement no longer hidden but fully integrated
+      into daily life.
+    </p>
+  </div>
+
+  <footer class="site-footer">
+    <span>© 2026 Alexander Brown</span>
+  </footer>
+
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox__backdrop" id="lb-backdrop"></div>
+    <div class="lightbox__stage">
+      <div class="lightbox__media-wrap" id="lb-media-wrap"></div>
+    </div>
+    <button class="lightbox__close" id="lb-close" aria-label="Close">Close ×</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" id="lb-prev" aria-label="Previous">&#8249;</button>
+    <button class="lightbox__arrow lightbox__arrow--next" id="lb-next" aria-label="Next">&#8250;</button>
+    <div class="lightbox__counter" id="lb-counter"></div>
+  </div>
+
+  <script src="masonry.js"></script>
+  <script src="transitions.js"></script>
+  <script>
+    /* Hide overlay once masonry has fully scrolled past */
+    (function () {
+      var overlay = document.getElementById('project-overlay');
+      var grid    = document.querySelector('.project-grid');
+      function tick() {
+        var bottom = grid.getBoundingClientRect().bottom;
+        overlay.style.opacity = bottom > 0 ? '1' : '0';
+      }
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
+    }());
+  </script>
+  <script>
+    (function () {
+      var blocks  = Array.from(document.querySelectorAll('.project-grid .img-block'))
+                      .filter(function (b) { return !b.hasAttribute('data-no-lightbox'); });
+      var lb      = document.getElementById('lightbox');
+      var wrap    = document.getElementById('lb-media-wrap');
+      var counter = document.getElementById('lb-counter');
+      var current = 0;
+
+      var items = blocks.map(function (b) {
+        return { type: b.getAttribute('data-type'), src: b.getAttribute('data-src') };
+      });
+
+      function open(idx) {
+        current = idx;
+        render();
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        var v = wrap.querySelector('video');
+        if (v) v.pause();
+        wrap.innerHTML = '';
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      function render() {
+        wrap.innerHTML = '';
+        var item = items[current];
+        if (item.type === 'video') {
+          var vid = document.createElement('video');
+          vid.className   = 'lightbox__video';
+          vid.autoplay    = true;
+          vid.muted       = true;
+          vid.loop        = true;
+          vid.playsInline = true;
+          var src = document.createElement('source');
+          src.src  = item.src;
+          src.type = 'video/mp4';
+          vid.appendChild(src);
+          wrap.appendChild(vid);
+        } else {
+          var img = document.createElement('img');
+          img.className = 'lightbox__img';
+          img.src = item.src;
+          wrap.appendChild(img);
+        }
+        counter.textContent = (current + 1) + '\u2002/\u2002' + items.length;
+      }
+
+      function prev() { current = (current - 1 + items.length) % items.length; render(); }
+      function next() { current = (current + 1) % items.length; render(); }
+
+      blocks.forEach(function (b, i) {
+        b.addEventListener('click', function () { open(i); });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-backdrop').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function (e) { e.stopPropagation(); prev(); });
+      document.getElementById('lb-next').addEventListener('click', function (e) { e.stopPropagation(); next(); });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('is-open')) return;
+        if (e.key === 'Escape')      close();
+        if (e.key === 'ArrowLeft')   prev();
+        if (e.key === 'ArrowRight')  next();
+      });
+    }());
+  </script>
+
+</body>
+</html>
