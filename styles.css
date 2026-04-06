@@ -598,16 +598,43 @@ img, video {
      set min-height, transform, absolute video, etc.
   ══════════════════════════════════════════════ */
 
+  /* Force single column — overrides per-page inline <style> grid-template-columns */
   .page-layout {
-    padding-top: calc(var(--header-h) + 36px);
-    padding-bottom: 80px;
+    grid-template-columns: 1fr !important;
+    padding-top: calc(var(--header-h) + 36px) !important;
+    padding-left: var(--margin) !important;
+    padding-right: var(--margin) !important;
+    padding-bottom: 0 !important;
+    column-gap: 0 !important;
+  }
+
+  /* Lock all grid children to column 1 so nothing bleeds outside the margin */
+  .hero-meta-bar,
+  .hero-left,
+  .hero-media,
+  .project-grid,
+  .page-sidebar {
+    grid-column: 1 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   /* Hide client sketches */
   .hero-sketch-item { display: none !important; }
 
-  /* Meta */
+  /* Meta — one line, small enough to fit without wrapping */
   .hero-meta-bar { padding-bottom: 12px; }
+  .hero-meta {
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+  .hero-meta li {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .hero-meta li + li::before {
+    margin: 0 7px;
+  }
 
   /* Title */
   .hero-title {
@@ -626,6 +653,8 @@ img, video {
     overflow: visible !important;
     margin-top: 28px !important;
     align-self: auto !important;
+    display: flex !important;
+    justify-content: center !important;
   }
   .hero-media video,
   .hero-media img {
@@ -640,25 +669,33 @@ img, video {
   /* ── Project text: pull out of fixed overlay, flow naturally ── */
   .project-overlay {
     position: static !important;
-    width: 100% !important;
-    padding: 40px 0 0 !important;
+    width: auto !important;
+    padding: 40px var(--margin) 80px !important;
     pointer-events: auto !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 16px !important;
     opacity: 1 !important;
     transition: none !important;
+    right: auto !important;
+    top: auto !important;
   }
 
   .sidebar-text {
     font-size: 11px;
     line-height: 1.9;
+    text-align: left;
   }
 
-  /* Barrowgate sticky sidebar — flow inline */
+  /* Sidebar — flow inline, left-aligned, provides bottom spacing for page */
   .page-sidebar {
     padding-top: 40px !important;
+    padding-bottom: 80px !important;
     margin-top: 0 !important;
+  }
+  /* Empty sidebar (overlay-style pages) — collapse completely so it adds no gap */
+  .page-sidebar:empty {
+    display: none !important;
   }
   .sidebar-sticky {
     position: static !important;
