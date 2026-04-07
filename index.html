@@ -30,8 +30,9 @@
       align-items: baseline;
       gap: 0;
       font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-      font-size: 24px;
+      font-size: 12px;
       font-weight: 700;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
@@ -85,7 +86,7 @@
   <div id="page-content">
 
     <header class="site-header">
-      <a href="index.html" class="site-title">AB</a>
+      <a href="index.html" class="site-title">Alexander Brown</a>
       <nav class="site-nav">
         <a href="works.html" class="nav-link is-active">Works</a>
         <a href="about.html" class="nav-link">About</a>
@@ -329,54 +330,81 @@
 
     }).then(function () {
 
-      // ── 4. Swoosh "AB" to top-left header position ────────
+      // ── 4. Swoosh "AB" to top-left, shrink to logo size ──────
       var intro   = document.getElementById('intro');
       var stage   = document.getElementById('intro-stage');
+      var content = document.getElementById('page-content');
 
-      var headerH = 54;
-      var margin  = 88;
+      var HEADER_H  = 54;
+      var MARGIN    = 88;
+      var LOGO_SIZE = 12;
+      var EASE      = 'cubic-bezier(0.76,0,0.24,1)';
+
       var stageRect = stage.getBoundingClientRect();
 
-      var fromX = stageRect.left;
-      var fromY = stageRect.top + stageRect.height / 2;
-
+      // Plain text clone — no spans, no baseline issues
       var clone = document.createElement('div');
       clone.textContent = 'AB';
       clone.style.cssText = [
         'position:fixed',
-        'top:' + (fromY - stageRect.height / 2) + 'px',
-        'left:' + fromX + 'px',
+        'top:' + stageRect.top + 'px',
+        'left:' + stageRect.left + 'px',
         'font-family:Montserrat,"Helvetica Neue",Arial,sans-serif',
-        'font-size:24px',
+        'font-size:12px',
         'font-weight:700',
+        'letter-spacing:0.02em',
         'text-transform:uppercase',
         'color:#000',
         'z-index:10000',
         'pointer-events:none',
-        'transition:top 0.65s cubic-bezier(0.76,0,0.24,1), left 0.65s cubic-bezier(0.76,0,0.24,1)',
-        'line-height:1'
+        'white-space:nowrap',
+        'line-height:1',
+        'overflow:hidden'
       ].join(';');
 
       document.body.appendChild(clone);
-
       stage.style.opacity = '0';
-
       void clone.offsetWidth;
 
-      var cloneH = clone.getBoundingClientRect().height;
-      clone.style.top  = ((headerH - cloneH) / 2) + 'px';
-      clone.style.left = margin + 'px';
+      // Fly to top-left, shrink font simultaneously
+      var targetTop = Math.round((HEADER_H - LOGO_SIZE) / 2);
+      clone.style.transition = 'top 0.65s ' + EASE + ', left 0.65s ' + EASE;
+      clone.style.top  = targetTop + 'px';
+      clone.style.left = MARGIN + 'px';
 
+      // ── 5. After landing: expand to full name via width clip ──
       setTimeout(function () {
 
-        intro.style.transition = 'opacity 0.5s ease';
-        intro.style.opacity = '0';
+        // Freeze width at current AB size
+        var abW = clone.getBoundingClientRect().width;
+        clone.style.width = abW + 'px';
 
+        // Swap text to full name, measure natural width via scrollWidth
+        clone.textContent = 'ALEXANDER BROWN';
+        var fullW = clone.scrollWidth;
+
+        void clone.offsetWidth;
+
+        clone.style.transition = 'width 0.6s ' + EASE;
+        clone.style.width = fullW + 'px';
+
+        // ── 6. After expansion: reveal page, fade intro ───────
         setTimeout(function () {
-          window.location.href = 'about.html';
-        }, 500);
 
-      }, 700);
+          content.classList.add('revealed');
+
+          setTimeout(function () {
+            intro.style.transition = 'opacity 0.5s ease';
+            intro.style.opacity = '0';
+            setTimeout(function () {
+              if (intro.parentNode) intro.parentNode.removeChild(intro);
+              if (clone.parentNode) clone.parentNode.removeChild(clone);
+            }, 500);
+          }, 350);
+
+        }, 700);
+
+      }, 720);
 
     });
 

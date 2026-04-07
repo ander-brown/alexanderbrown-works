@@ -320,7 +320,8 @@
 
     @media (max-width: 600px) {
       .skill-logo { width: 80px; }
-      .skill-row { gap: 16px; }
+      .skill-side { display: none; }
+      .skill-row { gap: 16px; justify-content: center; }
       .ab-works-cta { margin-top: 40px; }
       .timeline-entry { padding: 32px 0; }
     }
@@ -330,7 +331,7 @@
 <body>
 
   <header class="site-header">
-    <a href="index.html" class="site-title">AB</a>
+    <a href="index.html" class="site-title">Alexander Brown</a>
     <nav class="site-nav">
       <a href="works.html" class="nav-link">Works</a>
       <a href="about.html" class="nav-link is-active">About</a>
@@ -376,56 +377,17 @@
     <section class="ab-timeline">
       <div class="timeline-inner">
 
-        <!-- Kimbolton -->
+        <!-- Freelance -->
         <div class="timeline-entry">
-          <div class="timeline-date">2004<br>2011</div>
+          <div class="timeline-date">2021<br>2026</div>
           <div>
-            <p class="timeline-org">Kimbolton School</p>
-            <p class="timeline-location">Cambridgeshire, UK</p>
-            <p class="timeline-role">A-Level &nbsp;·&nbsp; Maths, Physics, Art</p>
-          </div>
-        </div>
-
-        <!-- Liverpool -->
-        <div class="timeline-entry">
-          <div class="timeline-date">2012<br>2015</div>
-          <div>
-            <p class="timeline-org">University of Liverpool</p>
-            <p class="timeline-location">Liverpool, UK</p>
-            <p class="timeline-role">Bachelor of Architecture (Hons) &nbsp;·&nbsp; 2:1</p>
+            <p class="timeline-org">Freelance Architect</p>
+            <p class="timeline-location">Remote &nbsp;·&nbsp; UK / Sweden</p>
+            <p class="timeline-role">Arkitekt SAR/MSA</p>
             <div class="timeline-desc">
-              <p>My studies at Liverpool focused on individual design development and hand drafting. Studio projects began at a small scale, such as outdoor public installations around the city and makers' houses, building an early understanding of briefs, design thinking and working with live clients.</p>
-              <p>Alongside this I developed a broader understanding of architectural history and theory, structures and construction, environmental science, integrated technical design and practice management. Over three years I learned to approach design problems through critical thinking and iterative development, supported by regular weekly critiques where ideas were tested, presented and refined.</p>
-              <p>This journey culminated in my degree project, the design of a transport hub and underground station in Liverpool's Baltic Triangle.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Trace Architects -->
-        <div class="timeline-entry">
-          <div class="timeline-date">2016<br>2019</div>
-          <div>
-            <p class="timeline-org">Trace Architects</p>
-            <p class="timeline-location">London, UK</p>
-            <p class="timeline-role">Part I Architectural Assistant</p>
-            <div class="timeline-desc">
-              <p>Working at a small design-led residential studio in London gave me exposure to the full breadth of architectural practice in the UK. I was involved across all stages of the RIBA Plan of Work 1 to 5, from early client meetings to explore ideas and aspirations, through to developing concepts, preparing planning and building control submissions, producing technical packages for construction and tendering, and supporting work on site to ensure the design was delivered accurately.</p>
-              <p>The experience was not only valuable in terms of process but also in understanding how a practice operates and how projects come together through collaboration. I worked closely with clients, planning consultants, building control officers, structural engineers, contractors and on some projects kitchen and interior designers. It reinforced the importance of clear communication and teamwork. Above all it was rewarding to see ideas come to life and to play a role in helping clients realise their vision.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lunds Universitet -->
-        <div class="timeline-entry">
-          <div class="timeline-date">2017<br>2019</div>
-          <div>
-            <p class="timeline-org">Lunds Universitet</p>
-            <p class="timeline-location">Lund, Sweden</p>
-            <p class="timeline-role">Master of Architecture</p>
-            <div class="timeline-desc">
-              <p>I chose to expand both my architectural and personal education by studying in Scandinavia, to better understand the Swedish design process and way of thinking. Studio work in advanced architectural design included analysing a large area of Malmö as a group and developing our own brief in response to the questions we felt needed to be asked. This shifted my perspective from the scale of the house to that of the city and taught me how to design collaboratively and work with different ideas.</p>
-              <p>Alongside this I developed my understanding of architectural theory, structure and detailing, and material design, with regular presentations where we were expected to test, defend and refine our ideas.</p>
-              <p>The programme concluded with my master's thesis, where I explored the relationship between psychology and architecture, focusing on human-centred questions through design. I valued the freedom to explore my own direction as well as the process of sharing, testing and developing ideas within the group.</p>
+              <p>I expanded my experience by undertaking two apartment renovations in Malmö, redesigning and refurbishing them to create more functional and enjoyable living spaces. These projects gave me a good understanding of construction in Sweden and strengthened my ability to deliver thoughtful design within practical constraints.</p>
+              <p>In parallel I've collaborated with several companies and run projects for private clients, supporting work across all stages from early concept and planning through to tender and construction on site. Balancing my own renovations with freelance work has given me a more entrepreneurial perspective and a practical understanding of running projects, from design and technical delivery through to client relationships and coordination.</p>
+              <p>More recently, I have been working closely with an architect in London, supporting the establishment of a new practice while contributing to the delivery of bespoke residential projects across the city.</p>
             </div>
           </div>
         </div>
@@ -445,18 +407,57 @@
           </div>
         </div>
 
-        <!-- Freelance -->
+        <!-- Lunds Universitet -->
         <div class="timeline-entry">
-          <div class="timeline-date">2021<br>2026</div>
+          <div class="timeline-date">2017<br>2019</div>
           <div>
-            <p class="timeline-org">Freelance Architect</p>
-            <p class="timeline-location">Remote &nbsp;·&nbsp; UK / Sweden</p>
-            <p class="timeline-role">Arkitekt SAR/MSA</p>
+            <p class="timeline-org">Lunds Universitet</p>
+            <p class="timeline-location">Lund, Sweden</p>
+            <p class="timeline-role">Master of Architecture</p>
             <div class="timeline-desc">
-              <p>I expanded my experience by undertaking two apartment renovations in Malmö, redesigning and refurbishing them to create more functional and enjoyable living spaces. These projects gave me a good understanding of construction in Sweden and strengthened my ability to deliver thoughtful design within practical constraints.</p>
-              <p>In parallel I've collaborated with several companies and run projects for private clients, supporting work across all stages from early concept and planning through to tender and construction on site. Balancing my own renovations with freelance work has given me a more entrepreneurial perspective and a practical understanding of running projects, from design and technical delivery through to client relationships and coordination.</p>
-              <p>More recently, I have been working closely with an architect in London, supporting the establishment of a new practice while contributing to the delivery of bespoke residential projects across the city.</p>
+              <p>I chose to expand both my architectural and personal education by studying in Scandinavia, to better understand the Swedish design process and way of thinking. Studio work in advanced architectural design included analysing a large area of Malmö as a group and developing our own brief in response to the questions we felt needed to be asked. This shifted my perspective from the scale of the house to that of the city and taught me how to design collaboratively and work with different ideas.</p>
+              <p>Alongside this I developed my understanding of architectural theory, structure and detailing, and material design, with regular presentations where we were expected to test, defend and refine our ideas.</p>
+              <p>The programme concluded with my master's thesis, where I explored the relationship between psychology and architecture, focusing on human-centred questions through design. I valued the freedom to explore my own direction as well as the process of sharing, testing and developing ideas within the group.</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Trace Architects -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2016<br>2019</div>
+          <div>
+            <p class="timeline-org">Trace Architects</p>
+            <p class="timeline-location">London, UK</p>
+            <p class="timeline-role">Part I Architectural Assistant</p>
+            <div class="timeline-desc">
+              <p>Working at a small design-led residential studio in London gave me exposure to the full breadth of architectural practice in the UK. I was involved across all stages of the RIBA Plan of Work 1 to 5, from early client meetings to explore ideas and aspirations, through to developing concepts, preparing planning and building control submissions, producing technical packages for construction and tendering, and supporting work on site to ensure the design was delivered accurately.</p>
+              <p>The experience was not only valuable in terms of process but also in understanding how a practice operates and how projects come together through collaboration. I worked closely with clients, planning consultants, building control officers, structural engineers, contractors and on some projects kitchen and interior designers. It reinforced the importance of clear communication and teamwork. Above all it was rewarding to see ideas come to life and to play a role in helping clients realise their vision.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liverpool -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2012<br>2015</div>
+          <div>
+            <p class="timeline-org">University of Liverpool</p>
+            <p class="timeline-location">Liverpool, UK</p>
+            <p class="timeline-role">Bachelor of Architecture (Hons) &nbsp;·&nbsp; 2:1</p>
+            <div class="timeline-desc">
+              <p>My studies at Liverpool focused on individual design development and hand drafting. Studio projects began at a small scale, such as outdoor public installations around the city and makers' houses, building an early understanding of briefs, design thinking and working with live clients.</p>
+              <p>Alongside this I developed a broader understanding of architectural history and theory, structures and construction, environmental science, integrated technical design and practice management. Over three years I learned to approach design problems through critical thinking and iterative development, supported by regular weekly critiques where ideas were tested, presented and refined.</p>
+              <p>This journey culminated in my degree project, the design of a transport hub and underground station in Liverpool's Baltic Triangle.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kimbolton -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2004<br>2011</div>
+          <div>
+            <p class="timeline-org">Kimbolton School</p>
+            <p class="timeline-location">Cambridgeshire, UK</p>
+            <p class="timeline-role">A-Level &nbsp;·&nbsp; Maths, Physics, Art</p>
           </div>
         </div>
 
