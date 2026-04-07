@@ -750,7 +750,9 @@ img, video {
     width: 100%;
     height: auto;
     object-fit: contain;
-    transition: filter 1.2s ease !important;
+    opacity: 1 !important;
+    filter: grayscale(1);
+    transition: filter 1.2s ease;
   }
 
   /* Captions always visible on touch */
