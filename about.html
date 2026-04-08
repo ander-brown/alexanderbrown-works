@@ -13,6 +13,41 @@
   <link rel="stylesheet" href="styles.css">
   <style>
 
+    /* ── Intro overlay ── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    #intro-stage {
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: visible;
+    }
+    .intro-letter {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    #page-content {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #page-content.revealed {
+      opacity: 1;
+    }
+
     /* ── Override about-page grid from styles.css ── */
     .about-page { display: block; padding: 0; min-height: unset; }
 
@@ -330,6 +365,14 @@
 </head>
 <body>
 
+  <!-- ── Intro animation overlay ─────────────────────────── -->
+  <div id="intro">
+    <div id="intro-stage"></div>
+  </div>
+
+  <!-- ── Page content ────────────────────────────────────── -->
+  <div id="page-content">
+
   <header class="site-header">
     <a href="index.html" class="site-title">Alexander Brown</a>
     <nav class="site-nav">
@@ -385,9 +428,9 @@
             <p class="timeline-location">Remote &nbsp;·&nbsp; UK / Sweden</p>
             <p class="timeline-role">Arkitekt SAR/MSA</p>
             <div class="timeline-desc">
-              <p>I expanded my experience by undertaking two apartment renovations in Malmö, redesigning and refurbishing them to create more functional and enjoyable living spaces. These projects gave me a good understanding of construction in Sweden and strengthened my ability to deliver thoughtful design within practical constraints.</p>
-              <p>In parallel I've collaborated with several companies and run projects for private clients, supporting work across all stages from early concept and planning through to tender and construction on site. Balancing my own renovations with freelance work has given me a more entrepreneurial perspective and a practical understanding of running projects, from design and technical delivery through to client relationships and coordination.</p>
-              <p>More recently, I have been working closely with an architect in London, supporting the establishment of a new practice while contributing to the delivery of bespoke residential projects across the city.</p>
+              <p>I have been collaborating with several practices and private clients, contributing to projects across all stages from early concept and planning through to tender and construction. This has strengthened my ability to work across different teams and deliver considered design responses within real project constraints.</p>
+              <p>Alongside this, I undertook two apartment renovations in Malmö, redesigning and refurbishing them to create more functional and enjoyable living spaces. These projects gave me a practical understanding of construction in Sweden and reinforced my ability to translate design ideas into built outcomes.</p>
+              <p>For the past two years, I have worked closely with an architect in London, playing a key role in establishing a new practice while delivering bespoke residential projects across the city. My involvement has included leading projects, coordinating with clients and consultants, and contributing across both design and technical delivery.</p>
             </div>
           </div>
         </div>
@@ -561,6 +604,8 @@
     <span>© 2026 Alexander Brown</span>
   </footer>
 
+  </div><!-- /page-content -->
+
   <script src="transitions.js"></script>
   <script>
     (function () {
@@ -577,6 +622,135 @@
         observer.observe(el);
       });
     }());
+  </script>
+
+  <script>
+  (function () {
+
+    var FULL     = 'ALEXANDER BROWN';
+    var EASE     = 'cubic-bezier(0.76,0,0.24,1)';
+    var HEADER_H = 54;
+    var MARGIN   = 88;
+
+    var stage   = document.getElementById('intro-stage');
+    var intro   = document.getElementById('intro');
+    var content = document.getElementById('page-content');
+
+    function wait(ms) {
+      return new Promise(function (r) { setTimeout(r, ms); });
+    }
+
+    // ── 1. Build letter spans, all invisible ──────────────────
+    var spans = [];
+    for (var i = 0; i < FULL.length; i++) {
+      var s = document.createElement('span');
+      s.className = 'intro-letter';
+      s.style.opacity = '0';
+      s.textContent = FULL[i] === ' ' ? '\u00A0' : FULL[i];
+      if (FULL[i] === ' ') s.style.width = '0.45ch';
+      stage.appendChild(s);
+      spans.push(s);
+    }
+
+    // ── 2. Typewriter: reveal each letter in sequence ─────────
+    wait(400)
+    .then(function () {
+      var chain = Promise.resolve();
+      spans.forEach(function (s) {
+        chain = chain.then(function () {
+          s.style.opacity = '1';
+          return wait(85);
+        });
+      });
+      return chain;
+    })
+
+    // ── 3. Pause, then slide letters right-to-left off stage ──
+    .then(function () { return wait(550); })
+    .then(function () {
+      var ps = [];
+      for (var i = 1; i < spans.length; i++) {
+        (function (span, d) {
+          ps.push(new Promise(function (r) {
+            setTimeout(function () {
+              span.style.transition = 'transform 0.38s ' + EASE + ', opacity 0.28s ease';
+              span.style.transform  = 'translateX(-55px)';
+              span.style.opacity    = '0';
+              setTimeout(r, 420);
+            }, d);
+          }));
+        })(spans[i], (spans.length - 1 - i) * 38);
+      }
+      return Promise.all(ps);
+    })
+
+    // ── 4. Swoop A to top-left ─────────────────────────────────
+    .then(function () { return wait(80); })
+    .then(function () {
+      var aRect = spans[0].getBoundingClientRect();
+
+      var clone = document.createElement('div');
+      clone.textContent = 'A';
+      clone.style.cssText = [
+        'position:fixed',
+        'top:'  + aRect.top  + 'px',
+        'left:' + aRect.left + 'px',
+        'font-family:Montserrat,"Helvetica Neue",Arial,sans-serif',
+        'font-size:12px',
+        'font-weight:700',
+        'letter-spacing:0.02em',
+        'text-transform:uppercase',
+        'color:#000',
+        'z-index:10000',
+        'pointer-events:none',
+        'white-space:nowrap',
+        'line-height:1',
+        'overflow:hidden'
+      ].join(';');
+
+      document.body.appendChild(clone);
+      spans[0].style.opacity = '0';
+      void clone.offsetWidth;
+
+      var targetTop = Math.round((HEADER_H - 12) / 2);
+      clone.style.transition = 'top 0.65s ' + EASE + ', left 0.65s ' + EASE;
+      clone.style.top  = targetTop + 'px';
+      clone.style.left = MARGIN   + 'px';
+
+      return wait(750).then(function () { return clone; });
+    })
+
+    // ── 5. Swish right: expand A → ALEXANDER BROWN ───────────
+    .then(function (clone) {
+      var aW = clone.getBoundingClientRect().width;
+      clone.style.width = aW + 'px';
+
+      clone.textContent = 'ALEXANDER BROWN';
+      var fullW = clone.scrollWidth;
+      void clone.offsetWidth;
+
+      clone.style.transition = 'width 0.6s ' + EASE;
+      clone.style.width = fullW + 'px';
+
+      return wait(700).then(function () { return clone; });
+    })
+
+    // ── 6. Reveal page, fade out intro overlay ────────────────
+    .then(function (clone) {
+      content.classList.add('revealed');
+      return wait(350).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      intro.style.transition = 'opacity 0.5s ease';
+      intro.style.opacity = '0';
+      return wait(500).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      if (intro.parentNode)  intro.parentNode.removeChild(intro);
+      if (clone.parentNode)  clone.parentNode.removeChild(clone);
+    });
+
+  }());
   </script>
 
 </body>

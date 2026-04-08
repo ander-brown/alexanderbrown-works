@@ -11,6 +11,12 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Redirect root to about page as the default landing
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+      window.location.replace('about.html');
+    }
+  </script>
   <style>
     /* ── Intro overlay ───────────────────────────────────────── */
     #intro {
@@ -35,29 +41,12 @@
       letter-spacing: 0.02em;
       text-transform: uppercase;
       white-space: nowrap;
-      overflow: hidden;
-    }
-
-    /* Each word is a flex container so letters sit side-by-side */
-    .intro-word {
-      display: flex;
-      align-items: baseline;
-      overflow: hidden;
-    }
-
-    #intro-space {
-      display: inline-block;
-      width: 0.5ch;
-      flex-shrink: 0;
-      transition: width 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+      overflow: visible;
     }
 
     /* Individual letter spans */
     .intro-letter {
       display: inline-block;
-      transition: width 0.45s cubic-bezier(0.76, 0, 0.24, 1),
-                  opacity 0.3s ease;
-      overflow: hidden;
       white-space: nowrap;
     }
 
@@ -75,11 +64,7 @@
 
   <!-- ── Intro animation overlay ─────────────────────────── -->
   <div id="intro">
-    <div id="intro-stage">
-      <div class="intro-word" id="word-alexander"></div>
-      <div id="intro-space">&nbsp;</div>
-      <div class="intro-word" id="word-brown"></div>
-    </div>
+    <div id="intro-stage"></div>
   </div>
 
   <!-- ── Normal page content ─────────────────────────────── -->
@@ -229,126 +214,74 @@
   <script>
   (function () {
 
-    var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var SCRAMBLE_DURATION = 900;   // ms total scramble per letter
-    var SCRAMBLE_INTERVAL = 50;    // ms between scramble ticks
-    var STAGGER = 60;              // ms between each letter starting its scramble
+    var FULL     = 'ALEXANDER BROWN';
+    var EASE     = 'cubic-bezier(0.76,0,0.24,1)';
+    var HEADER_H = 54;
+    var MARGIN   = 88;
 
-    var WORD_A = 'ALEXANDER';
-    var WORD_B = 'BROWN';
+    var stage   = document.getElementById('intro-stage');
+    var intro   = document.getElementById('intro');
+    var content = document.getElementById('page-content');
 
-    var wA = document.getElementById('word-alexander');
-    var wB = document.getElementById('word-brown');
-    var sp = document.getElementById('intro-space');
-
-    // ── 1. Build letter spans ─────────────────────────────────
-    function buildLetters(word, container) {
-      var spans = [];
-      for (var i = 0; i < word.length; i++) {
-        var s = document.createElement('span');
-        s.className = 'intro-letter';
-        s.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
-        container.appendChild(s);
-        spans.push(s);
-      }
-      return spans;
+    function wait(ms) {
+      return new Promise(function (r) { setTimeout(r, ms); });
     }
 
-    var spansA = buildLetters(WORD_A, wA);
-    var spansB = buildLetters(WORD_B, wB);
+    // ── 1. Build letter spans, all invisible ──────────────────
+    var spans = [];
+    for (var i = 0; i < FULL.length; i++) {
+      var s = document.createElement('span');
+      s.className = 'intro-letter';
+      s.style.opacity = '0';
+      s.textContent = FULL[i] === ' ' ? '\u00A0' : FULL[i];
+      if (FULL[i] === ' ') s.style.width = '0.45ch';
+      stage.appendChild(s);
+      spans.push(s);
+    }
 
-    // ── 2. Scramble each letter, then settle ─────────────────
-    function scrambleLetter(span, target, startDelay) {
-      return new Promise(function (resolve) {
-        setTimeout(function () {
-          var elapsed = 0;
-          var interval = setInterval(function () {
-            elapsed += SCRAMBLE_INTERVAL;
-            if (elapsed >= SCRAMBLE_DURATION) {
-              clearInterval(interval);
-              span.textContent = target;
-              resolve();
-            } else {
-              var progress = elapsed / SCRAMBLE_DURATION;
-              if (Math.random() < progress * progress) {
-                span.textContent = target;
-              } else {
-                span.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
-              }
-            }
-          }, SCRAMBLE_INTERVAL);
-        }, startDelay);
+    // ── 2. Typewriter: reveal each letter in sequence ─────────
+    wait(400)
+    .then(function () {
+      var chain = Promise.resolve();
+      spans.forEach(function (s) {
+        chain = chain.then(function () {
+          s.style.opacity = '1';
+          return wait(85);
+        });
       });
-    }
+      return chain;
+    })
 
-    var allPromises = [];
-    for (var i = 0; i < spansA.length; i++) {
-      allPromises.push(scrambleLetter(spansA[i], WORD_A[i], i * STAGGER));
-    }
-    for (var j = 0; j < spansB.length; j++) {
-      allPromises.push(scrambleLetter(spansB[j], WORD_B[j], (spansA.length + j) * STAGGER));
-    }
-
-    // ── 3. After scramble: collapse words to A and B ─────────
-    Promise.all(allPromises).then(function () {
-
-      return new Promise(function (r) { setTimeout(r, 500); });
-
-    }).then(function () {
-
-      var allSpans = spansA.concat(spansB);
-      allSpans.forEach(function (s) {
-        s.style.width = s.getBoundingClientRect().width + 'px';
-      });
-      var spaceW = sp.getBoundingClientRect().width;
-      sp.style.width = spaceW + 'px';
-
-      void document.body.offsetWidth;
-
-      var dur = '0.55s';
-      var ease = 'cubic-bezier(0.76, 0, 0.24, 1)';
-
-      for (var k = 1; k < spansA.length; k++) {
-        spansA[k].style.transition = 'width ' + dur + ' ' + ease + ', opacity 0.3s ease';
-        spansA[k].style.width = '0';
-        spansA[k].style.opacity = '0';
+    // ── 3. Pause, then slide letters right-to-left off stage ──
+    .then(function () { return wait(550); })
+    .then(function () {
+      var ps = [];
+      for (var i = 1; i < spans.length; i++) {
+        (function (span, d) {
+          ps.push(new Promise(function (r) {
+            setTimeout(function () {
+              span.style.transition = 'transform 0.38s ' + EASE + ', opacity 0.28s ease';
+              span.style.transform  = 'translateX(-55px)';
+              span.style.opacity    = '0';
+              setTimeout(r, 420);
+            }, d);
+          }));
+        })(spans[i], (spans.length - 1 - i) * 38);
       }
-      sp.style.transition = 'width ' + dur + ' ' + ease;
-      sp.style.width = '0';
+      return Promise.all(ps);
+    })
 
-      for (var m = 1; m < spansB.length; m++) {
-        spansB[m].style.transition = 'width ' + dur + ' ' + ease + ', opacity 0.3s ease';
-        spansB[m].style.width = '0';
-        spansB[m].style.opacity = '0';
-      }
+    // ── 4. Swoop A to top-left ─────────────────────────────────
+    .then(function () { return wait(80); })
+    .then(function () {
+      var aRect = spans[0].getBoundingClientRect();
 
-      return new Promise(function (r) { setTimeout(r, 650); });
-
-    }).then(function () {
-
-      return new Promise(function (r) { setTimeout(r, 200); });
-
-    }).then(function () {
-
-      // ── 4. Swoosh "AB" to top-left, shrink to logo size ──────
-      var intro   = document.getElementById('intro');
-      var stage   = document.getElementById('intro-stage');
-      var content = document.getElementById('page-content');
-
-      var HEADER_H  = 54;
-      var MARGIN    = 88;
-      var LOGO_SIZE = 12;
-      var EASE      = 'cubic-bezier(0.76,0,0.24,1)';
-
-      var stageRect = stage.getBoundingClientRect();
-
-      // Plain text clone — no spans, no baseline issues
       var clone = document.createElement('div');
-      clone.textContent = 'AB';
+      clone.textContent = 'A';
       clone.style.cssText = [
         'position:fixed',
-        'top:' + stageRect.top + 'px',
-        'left:' + stageRect.left + 'px',
+        'top:'  + aRect.top  + 'px',
+        'left:' + aRect.left + 'px',
         'font-family:Montserrat,"Helvetica Neue",Arial,sans-serif',
         'font-size:12px',
         'font-weight:700',
@@ -363,49 +296,45 @@
       ].join(';');
 
       document.body.appendChild(clone);
-      stage.style.opacity = '0';
+      spans[0].style.opacity = '0';
       void clone.offsetWidth;
 
-      // Fly to top-left, shrink font simultaneously
-      var targetTop = Math.round((HEADER_H - LOGO_SIZE) / 2);
+      var targetTop = Math.round((HEADER_H - 12) / 2);
       clone.style.transition = 'top 0.65s ' + EASE + ', left 0.65s ' + EASE;
       clone.style.top  = targetTop + 'px';
-      clone.style.left = MARGIN + 'px';
+      clone.style.left = MARGIN   + 'px';
 
-      // ── 5. After landing: expand to full name via width clip ──
-      setTimeout(function () {
+      return wait(750).then(function () { return clone; });
+    })
 
-        // Freeze width at current AB size
-        var abW = clone.getBoundingClientRect().width;
-        clone.style.width = abW + 'px';
+    // ── 5. Swish right: expand A → ALEXANDER BROWN ───────────
+    .then(function (clone) {
+      var aW = clone.getBoundingClientRect().width;
+      clone.style.width = aW + 'px';
 
-        // Swap text to full name, measure natural width via scrollWidth
-        clone.textContent = 'ALEXANDER BROWN';
-        var fullW = clone.scrollWidth;
+      clone.textContent = 'ALEXANDER BROWN';
+      var fullW = clone.scrollWidth;
+      void clone.offsetWidth;
 
-        void clone.offsetWidth;
+      clone.style.transition = 'width 0.6s ' + EASE;
+      clone.style.width = fullW + 'px';
 
-        clone.style.transition = 'width 0.6s ' + EASE;
-        clone.style.width = fullW + 'px';
+      return wait(700).then(function () { return clone; });
+    })
 
-        // ── 6. After expansion: reveal page, fade intro ───────
-        setTimeout(function () {
-
-          content.classList.add('revealed');
-
-          setTimeout(function () {
-            intro.style.transition = 'opacity 0.5s ease';
-            intro.style.opacity = '0';
-            setTimeout(function () {
-              if (intro.parentNode) intro.parentNode.removeChild(intro);
-              if (clone.parentNode) clone.parentNode.removeChild(clone);
-            }, 500);
-          }, 350);
-
-        }, 700);
-
-      }, 720);
-
+    // ── 6. Reveal page, fade out intro overlay ────────────────
+    .then(function (clone) {
+      content.classList.add('revealed');
+      return wait(350).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      intro.style.transition = 'opacity 0.5s ease';
+      intro.style.opacity = '0';
+      return wait(500).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      if (intro.parentNode)  intro.parentNode.removeChild(intro);
+      if (clone.parentNode)  clone.parentNode.removeChild(clone);
     });
 
   }());
