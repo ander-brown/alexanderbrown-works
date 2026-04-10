@@ -14,6 +14,35 @@
   <style>
     .hero-media { align-self: start; margin-top: 0; }
     .hero-media video { height: auto; }
+
+    /* Move sketch + text into sticky sidebar — hide the old positions */
+    .hero-sketch-item { display: none; }
+    .project-overlay  { display: none !important; }
+
+    /* Remove default sidebar top padding so sticky top matches original overlay */
+    .page-sidebar { padding-top: 0; }
+
+    /* Sticky wrapper inside col 3 sidebar */
+    .sidebar-sticky-inner {
+      position: sticky;
+      top: calc(var(--header-h) + 80px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-height: 50vh; /* matches video min-height so sketch bottom aligns with video bottom */
+    }
+
+    .sidebar-sticky-inner .sketch-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-top: auto; /* pushes sketch to bottom of the 50vh container */
+    }
+
+    /* Reset to static on tablet and below */
+    @media (max-width: 900px) {
+      .sidebar-sticky-inner { position: static; }
+    }
   </style>
 </head>
 <body>
@@ -116,29 +145,29 @@
 
     </main>
 
-    <!-- Col 3 placeholder keeps grid structure intact -->
-    <aside class="page-sidebar"></aside>
+    <!-- Col 3: sticky text + sketch -->
+    <aside class="page-sidebar">
+      <div class="sidebar-sticky-inner">
+        <p class="sidebar-text">
+          Designed for a young family of four, this project transforms the ground
+          and semi-basement levels of a London terrace into a brighter, more
+          connected home centred around everyday family life. The brief was to turn
+          the lower ground floor into a place the family actually wanted to spend
+          time in — not just a secondary space, but the heart of the house. A glazed
+          opening was introduced within the existing structure, pulling daylight deep
+          into the plan and creating a generous double-height volume.
+        </p>
+        <p class="sidebar-text">
+          A stepped sequence from the entrance leads down past a half-level library
+          into a new kitchen and dining space that opens directly onto the garden.
+          The result is a home that feels lighter, more open and more intuitive to
+          move through, with the basement no longer hidden but fully integrated
+          into daily life.
+        </p>
+        <img class="sketch-img" src="Assets/Hammersmith/Hammersmith Client .webp" alt="Client sketch">
+      </div>
+    </aside>
 
-  </div>
-
-  <!-- Project text overlay — direct body child so mix-blend-mode works -->
-  <div class="project-overlay" id="project-overlay">
-    <p class="sidebar-text">
-      Designed for a young family of four, this project transforms the ground
-      and semi-basement levels of a London terrace into a brighter, more
-      connected home centred around everyday family life. The brief was to turn
-      the lower ground floor into a place the family actually wanted to spend
-      time in — not just a secondary space, but the heart of the house. A glazed
-      opening was introduced within the existing structure, pulling daylight deep
-      into the plan and creating a generous double-height volume.
-    </p>
-    <p class="sidebar-text">
-      A stepped sequence from the entrance leads down past a half-level library
-      into a new kitchen and dining space that opens directly onto the garden.
-      The result is a home that feels lighter, more open and more intuitive to
-      move through, with the basement no longer hidden but fully integrated
-      into daily life.
-    </p>
   </div>
 
   <footer class="site-footer">
@@ -159,19 +188,6 @@
 
   <script src="masonry.js"></script>
   <script src="transitions.js"></script>
-  <script>
-    /* Hide overlay once masonry has fully scrolled past */
-    (function () {
-      var overlay = document.getElementById('project-overlay');
-      var grid    = document.querySelector('.project-grid');
-      function tick() {
-        var bottom = grid.getBoundingClientRect().bottom;
-        overlay.style.opacity = bottom > 0 ? '1' : '0';
-      }
-      window.addEventListener('scroll', tick, { passive: true });
-      tick();
-    }());
-  </script>
   <script>
     (function () {
       var blocks  = Array.from(document.querySelectorAll('.project-grid .img-block'))
