@@ -1,0 +1,771 @@
+/* ═══════════════════════════════════════════════════════════
+   Alexander Brown — Portfolio
+   styles.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Custom cursor ────────────────────────────────────────── */
+
+/* ── Variables ────────────────────────────────────────────── */
+:root {
+  --black:    #000;
+  --white:    #fff;
+  --gray:     #999;
+  --light:    #f5f5f5;
+
+  --gap:      2px;
+  --gutter:   2vw;
+  --margin:   88px;          /* consistent left/right gutter across all pages */
+  --header-h: 54px;
+
+  /* Fonts */
+  --display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --sans:    'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --serif:   'Spectral', Georgia, serif;
+
+  /* Type scale */
+  --t-logo:    12px;
+  --t-nav:     11px;
+  --t-label:   10px;
+  --t-meta:     9px;
+  --t-body:    11.5px;
+  --t-caption:  8px;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--black);
+}
+
+a { text-decoration: none; color: inherit; }
+
+img, video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--margin);
+  background: var(--white);
+}
+
+.site-title {
+  font-family: var(--display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--display);
+  font-size: var(--t-nav);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--gray);
+  transition: color 0.15s;
+}
+
+.nav-link:hover { color: var(--black); }
+
+.nav-link.is-active {
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   HOMEPAGE — MASONRY GRID
+   ══════════════════════════════════════════════════════════ */
+.masonry-grid {
+  /* position: relative and height set by masonry.js */
+  margin-top: calc(var(--header-h) + 88px);
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: var(--gap);
+}
+
+.item-link { display: block; }
+
+.item-media {
+  overflow: hidden;
+  background: var(--light);
+  line-height: 0;
+  position: relative;
+}
+
+.item-media img,
+.item-media video {
+  width: 100%;
+  display: block;
+  filter: grayscale(1) brightness(1.3);
+  opacity: 0.25;
+  transition: filter 1.4s ease, opacity 1.4s ease;
+}
+
+/* JS takes over proximity highlighting on desktop — hover kept as fallback */
+.masonry-item:hover .item-media img,
+.masonry-item:hover .item-media video {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* No overlay — removed */
+.item-overlay { display: none; }
+.item-overlay-title { display: none; }
+
+/* Caption — hidden by default, appears below image on hover */
+.item-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 0 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.masonry-item:hover .item-caption {
+  opacity: 1;
+}
+
+.item-title {
+  font-family: var(--display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.item-year {
+  font-family: var(--sans);
+  font-size: var(--t-label);
+  color: var(--gray);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   PROJECT PAGE
+   Flat 3-column grid: title | video | sidebar
+   Each element is a direct grid child with explicit placement,
+   so the sketch can bottom-align with the video using align-self.
+   ══════════════════════════════════════════════════════════ */
+
+.page-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr 240px;
+  column-gap: 64px;
+  padding: calc(var(--header-h) + 48px) var(--margin) 120px;
+  align-items: start;
+}
+
+/* ── Meta bar: spans title + video cols ── */
+.hero-meta-bar {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  padding-bottom: 20px;
+}
+
+.hero-meta {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.hero-meta li {
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.hero-meta li + li::before {
+  content: '·';
+  margin: 0 12px;
+  color: var(--gray);
+}
+
+/* ── Title: col 1, hero row ── */
+.hero-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+/* ── Video: col 2, hero row — its height sets the row ── */
+.hero-media {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 50vh;
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.hero-media video,
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Sketch: col 3, hero row — bottom-aligned with video ── */
+.hero-sketch-item {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sketch-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Masonry: cols 1+2, below hero ── */
+.project-grid {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  margin-top: 160px;
+}
+
+.project-block { /* width / top / left set by masonry.js */ }
+
+/* ── Sidebar: col 3, all rows — sticky text follows through masonry ── */
+.page-sidebar {
+  grid-column: 3;
+  grid-row: 1 / span 4;
+  align-self: stretch;
+  padding-top: 32px;
+}
+
+.sidebar-sticky { display: none; }
+
+.project-overlay {
+  position: fixed;
+  right: var(--margin);
+  top: calc(var(--header-h) + 80px);
+  width: 240px;
+  color: rgba(0,0,0,0.75);
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: opacity 0.3s;
+}
+
+.sidebar-text {
+  font-family: var(--serif);
+  font-size: 12px;
+  line-height: 1.85;
+  color: rgba(0,0,0,0.70);
+  margin: 0;
+  text-align: justify;
+}
+
+.info-credit {
+  font-family: var(--sans);
+  font-size: var(--t-caption);
+  letter-spacing: 0.04em;
+  color: var(--gray);
+}
+
+/* — Image / video blocks — */
+.img-block {
+  cursor: zoom-in;
+  background: var(--white);
+  line-height: 0;
+}
+
+.img-block img,
+.img-block video {
+  width: 100%;
+  height: auto;        /* always natural aspect ratio — never cropped */
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.img-block:hover img,
+.img-block:hover video { opacity: 0.88; }
+
+/* Images excluded from the slideshow lose the zoom cursor */
+.img-block[data-no-lightbox] { cursor: default; }
+
+/* Label under technical drawings (currently unused — kept for future projects) */
+.img-label {
+  font-family: var(--sans);
+  font-size: var(--t-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 8px 0 0;
+  line-height: 1.2;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   LIGHTBOX
+   ══════════════════════════════════════════════════════════ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.lightbox.is-open { display: block; }
+
+/* Near-solid white — background is barely visible, image reads clearly */
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.99);
+}
+
+.lightbox__stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__media-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 58vw;
+  max-height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__img {
+  max-width: 58vw;
+  max-height: 62vh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.lightbox__video {
+  max-width: 58vw;
+  max-height: 62vh;
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+/* Controls */
+.lightbox__close {
+  position: fixed;
+  top: 18px;
+  right: var(--gutter);
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: var(--t-nav);
+  letter-spacing: 0.06em;
+  color: var(--black);
+  padding: 4px 0;
+}
+
+.lightbox__arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--black);
+  padding: 20px 18px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.lightbox__arrow:hover { opacity: 1; }
+.lightbox__arrow--prev { left: 0; }
+.lightbox__arrow--next { right: 0; }
+
+.lightbox__counter {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: var(--sans);
+  font-size: var(--t-caption);
+  letter-spacing: 0.1em;
+  color: var(--gray);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   ABOUT PAGE
+   ══════════════════════════════════════════════════════════ */
+.about-page {
+  padding-top: var(--header-h);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--header-h) - 60px);
+}
+
+.about-photo {
+  background: var(--light);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-content { padding: 56px var(--margin); }
+
+.about-name {
+  font-family: var(--display);
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.about-bio {
+  font-family: var(--serif);
+  font-size: var(--t-body);
+  line-height: 1.85;
+  color: rgba(0,0,0,0.70);
+  margin-bottom: 36px;
+  text-align: justify;
+}
+
+.about-bio p + p { margin-top: 1.2em; }
+
+.disciplines-label {
+  font-family: var(--display);
+  font-size: var(--t-meta);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 10px;
+}
+
+.disciplines-list { list-style: none; }
+
+.disciplines-list li {
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  letter-spacing: 0.01em;
+  padding: 5px 0;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.disciplines-list li:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════ */
+.site-footer {
+  padding: 16px var(--margin) 22px;
+  font-family: var(--sans);
+  font-size: var(--t-caption);
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  margin-top: var(--gap);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  :root { --margin: 48px; }
+  .page-layout { column-gap: 48px; }
+}
+
+@media (max-width: 900px) {
+  :root { --margin: 32px; }
+
+  /* Collapse to single column — stack title, video, masonry, then sidebar */
+  .page-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .hero-meta-bar { grid-column: 1; grid-row: auto; }
+  .hero-left     { grid-column: 1; grid-row: auto; }
+
+  .hero-media {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: auto;
+    height: 60vw;
+    align-self: auto;
+    margin-top: 24px;
+  }
+
+  .hero-sketch-item {
+    grid-column: 1;
+    grid-row: auto;
+    align-self: auto;
+    margin-top: 24px;
+    max-width: 160px;
+  }
+
+  .project-grid {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 64px;
+  }
+
+  .page-sidebar {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 48px;
+  }
+
+  .sidebar-sticky { position: static; }
+
+  .hero-title { font-size: 36px; }
+
+  .about-page { grid-template-columns: 1fr; }
+  .about-photo { height: 50vw; }
+  .about-content { padding: 40px var(--margin); }
+}
+
+@media (max-width: 600px) {
+  :root { --margin: 28px; }
+
+  /* ══════════════════════════════════════════════
+     PROJECT PAGE — MOBILE REDESIGN
+     Override all per-page <style> blocks that
+     set min-height, transform, absolute video, etc.
+  ══════════════════════════════════════════════ */
+
+  /* Force single column — overrides per-page inline <style> grid-template-columns */
+  .page-layout {
+    grid-template-columns: 1fr !important;
+    padding-top: calc(var(--header-h) + 36px) !important;
+    padding-left: var(--margin) !important;
+    padding-right: var(--margin) !important;
+    padding-bottom: 0 !important;
+    column-gap: 0 !important;
+  }
+
+  /* Lock all grid children to column 1 so nothing bleeds outside the margin */
+  .hero-meta-bar,
+  .hero-left,
+  .hero-media,
+  .project-grid,
+  .page-sidebar {
+    grid-column: 1 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Hide client sketches */
+  .hero-sketch-item { display: none !important; }
+
+  /* Meta — one line, small enough to fit without wrapping */
+  .hero-meta-bar { padding-bottom: 12px; }
+  .hero-meta {
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+  .hero-meta li {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .hero-meta li + li::before {
+    margin: 0 7px;
+  }
+
+  /* Title */
+  .hero-title {
+    font-size: 30px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Hero video: reset ALL per-page overrides ──
+     min-height, transform, position:absolute, width:120%
+     are all cancelled so the video sits naturally */
+  .hero-media {
+    position: static !important;
+    min-height: unset !important;
+    height: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+    margin-top: 28px !important;
+    align-self: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .hero-media video,
+  .hero-media img {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    bottom: auto !important;
+    right: auto !important;
+  }
+
+  /* ── Project text: pull out of fixed overlay, flow naturally ── */
+  .project-overlay {
+    position: static !important;
+    width: auto !important;
+    padding: 40px var(--margin) 80px !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    opacity: 1 !important;
+    transition: none !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  .sidebar-text {
+    font-size: 11px;
+    line-height: 1.9;
+    text-align: left;
+  }
+
+  /* Sidebar — flow inline, left-aligned, provides bottom spacing for page */
+  .page-sidebar {
+    padding-top: 40px !important;
+    padding-bottom: 80px !important;
+    margin-top: 0 !important;
+  }
+  /* Empty sidebar (overlay-style pages) — collapse completely so it adds no gap */
+  .page-sidebar:empty {
+    display: none !important;
+  }
+  .sidebar-sticky {
+    position: static !important;
+  }
+
+  /* ── Image grid: reset 240px desktop margin ── */
+  .project-grid {
+    margin-top: 48px !important;
+  }
+
+  /* Individual blocks — clean, no card effect */
+  .project-block {
+    padding: 0 !important;
+    background: none !important;
+  }
+
+  /* Images — full frame, natural aspect ratio */
+  .img-block img,
+  .img-block video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  /* Seam/Pivot: reset their margin-top on hero */
+  .hero-media[style] {
+    margin-top: 28px !important;
+    transform: none !important;
+  }
+
+  /* ══════════════════════════════════════════════
+     HOMEPAGE WORKS GRID — MOBILE
+  ══════════════════════════════════════════════ */
+  .masonry-grid {
+    margin-top: calc(var(--header-h) + 44px);
+  }
+
+  .masonry-item { padding: 0; background: none; }
+
+  .item-media {
+    overflow: visible;
+    background: none;
+  }
+  .item-media img,
+  .item-media video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: 1 !important;
+    filter: grayscale(1);
+    transition: filter 1.2s ease;
+  }
+
+  /* Captions always visible on touch */
+  .item-caption {
+    opacity: 1;
+    padding-top: 10px;
+  }
+
+  /* ══════════════════════════════════════════════
+     LIGHTBOX — MOBILE
+  ══════════════════════════════════════════════ */
+  .lightbox__media-wrap { max-width: 92vw; max-height: 80vh; }
+  .lightbox__img,
+  .lightbox__video { max-width: 92vw; max-height: 80vh; }
+  .lightbox__arrow { padding: 24px 16px; font-size: 28px; }
+}

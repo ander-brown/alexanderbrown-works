@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Alexander Brown</title>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.webp">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+    /* ── Intro overlay ── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    #intro-stage {
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: visible;
+    }
+    .intro-letter {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    #page-content {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #page-content.revealed {
+      opacity: 1;
+    }
+
+    /* ── Override about-page grid from styles.css ── */
+    .about-page { display: block; padding: 0; min-height: unset; }
+
+    /* ══════════════════════════════════════════════════════
+       LOAD ANIMATIONS
+    ══════════════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════ */
+    .ab-hero {
+      position: relative;
+      margin-top: var(--header-h);
+      min-height: calc(100vh - var(--header-h));
+      padding: 0 var(--margin) 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ab-hero-inner {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px;
+      align-items: stretch;
+    }
+
+    .ab-hero__photo {
+      overflow: hidden;
+      margin-left: -140px;
+      width: calc(100% + 140px);
+      opacity: 0;
+      animation: fadeIn 1.1s ease 0.15s forwards;
+    }
+
+    .ab-hero__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 70% top;
+      display: block;
+    }
+
+    .ab-hero__content {
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.4s forwards;
+    }
+
+    .ab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 52px;
+    }
+
+    .ab-info__line {
+      font-family: var(--sans);
+      font-size: var(--t-meta);
+      letter-spacing: 0.03em;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .ab-info__line--sub {
+      font-size: var(--t-caption);
+      color: rgba(0,0,0,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    .ab-bio p {
+      font-family: var(--serif);
+      font-size: 12px;
+      line-height: 1.95;
+      color: rgba(0,0,0,0.68);
+      text-align: justify;
+    }
+
+    .ab-bio p + p { margin-top: 1.4em; }
+
+    /* ── Selected Works button ── */
+    .ab-works-cta {
+      max-width: 680px;
+      width: 100%;
+      margin: 72px auto 0;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+
+    .ab-works-btn {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: var(--t-nav);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,0.28);
+      padding: 11px 22px;
+      color: var(--black);
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .ab-works-btn:hover {
+      border-color: var(--black);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       TIMELINE
+    ══════════════════════════════════════════════════════ */
+    .ab-timeline {
+      padding: 80px var(--margin) 100px;
+    }
+
+    /* ── Background label — pinned near bottom of hero viewport ── */
+    .ab-section-label {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.22);
+      white-space: nowrap;
+      display: block;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 2s forwards;
+    }
+
+    .timeline-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .timeline-entry {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 48px;
+      padding: 56px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .timeline-entry:first-child { border-top: 1px solid rgba(0,0,0,0.06); }
+
+    .timeline-entry.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-date {
+      font-family: var(--display);
+      font-size: var(--t-meta);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--gray);
+      padding-top: 2px;
+      line-height: 1.7;
+    }
+
+    .timeline-org {
+      font-family: var(--display);
+      font-size: var(--t-label);
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .timeline-location {
+      font-family: var(--sans);
+      font-size: var(--t-meta);
+      color: var(--gray);
+      letter-spacing: 0.03em;
+      margin-bottom: 16px;
+    }
+
+    .timeline-role {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(0,0,0,0.70);
+      margin-bottom: 20px;
+    }
+
+    .timeline-qual {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--gray);
+    }
+
+    .timeline-desc {
+      font-family: var(--serif);
+      font-size: 11.5px;
+      line-height: 1.9;
+      color: rgba(0,0,0,0.65);
+      text-align: justify;
+    }
+
+    .timeline-desc p + p { margin-top: 1.1em; }
+
+    /* ══════════════════════════════════════════════════════
+       SOFTWARE SKILLS
+    ══════════════════════════════════════════════════════ */
+    .ab-skills {
+      padding: 100px var(--margin) 160px;
+    }
+
+    .skills-inner {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 30px 0;
+    }
+
+    .skill-side {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .skill-bar {
+      height: 2px;
+      background: rgba(0,0,0,0.22);
+      width: 100%;
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .skill-side--left .skill-bar {
+      transform-origin: right center;
+      transform: scaleX(0);
+    }
+
+    .skill-side--right .skill-bar {
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    .skill-row.is-visible .skill-bar {
+      transform: scaleX(var(--level));
+    }
+
+    .skill-logo {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s;
+    }
+
+    .skill-row.is-visible .skill-logo {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-logo img {
+      display: block;
+      width: auto;
+      height: 42px;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.55;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .ab-hero { padding: 40px var(--margin) 80px; min-height: unset; justify-content: flex-start; }
+      .ab-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .ab-hero__photo { height: 52vw; margin-left: 0; width: 100%; }
+      .timeline-entry { grid-template-columns: 1fr; gap: 12px; }
+      .ab-section-label { position: static; transform: none; margin: 40px auto 0; display: block; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .skill-logo { width: 80px; }
+      .skill-side { display: none; }
+      .skill-row { gap: 16px; justify-content: center; }
+      .ab-works-cta { margin-top: 40px; }
+      .timeline-entry { padding: 32px 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── Intro animation overlay ─────────────────────────── -->
+  <div id="intro">
+    <div id="intro-stage"></div>
+  </div>
+
+  <!-- ── Page content ────────────────────────────────────── -->
+  <div id="page-content">
+
+  <header class="site-header">
+    <a href="index.html" class="site-title">Alexander Brown</a>
+    <nav class="site-nav">
+      <a href="works.html" class="nav-link">Works</a>
+      <a href="about.html" class="nav-link is-active">About</a>
+    </nav>
+  </header>
+
+  <main class="about-page">
+
+    <!-- ── HERO ── -->
+    <section class="ab-hero">
+      <div class="ab-hero-inner">
+
+        <div class="ab-hero__photo">
+          <img src="Assets/AWRB/Profile Photo.jpg" alt="Alexander Brown">
+        </div>
+
+        <div class="ab-hero__content">
+
+          <div class="ab-info">
+            <span class="ab-info__line" style="font-weight:700;font-size:11px;">Alexander Brown SAR</span>
+            <span class="ab-info__line ab-info__line--sub">(Sveriges Arkitekter)</span>
+          </div>
+
+          <div class="ab-bio">
+            <p>Architecture has been an adventure, taking me to new cities, countries, and experiences. At its heart, I've always seen it as being about people: understanding, learning, and working together to create something better. I've been lucky to work in design-led studios in London and Sweden, on projects across all stages from concept through to construction. Outside of work, I'm active and social. I enjoy most sports, especially football, and like sharing new ideas with friends over a drink.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="ab-works-cta">
+        <a href="works.html" class="ab-works-btn">Selected Works</a>
+        <a href="contact.html" class="ab-works-btn">Get in touch</a>
+      </div>
+
+      <p class="ab-section-label">Background</p>
+    </section>
+
+    <!-- ── EDUCATION / EXPERIENCE ── -->
+    <section class="ab-timeline">
+      <div class="timeline-inner">
+
+        <!-- Freelance -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2021<br>2026</div>
+          <div>
+            <p class="timeline-org">Freelance Architect</p>
+            <p class="timeline-location">Remote &nbsp;·&nbsp; UK / Sweden</p>
+            <p class="timeline-role">Arkitekt SAR/MSA</p>
+            <div class="timeline-desc">
+              <p>I have been collaborating with several practices and private clients, contributing to projects across all stages from early concept and planning through to tender and construction. This has strengthened my ability to work across different teams and deliver considered design responses within real project constraints.</p>
+              <p>Alongside this, I undertook two apartment renovations in Malmö, redesigning and refurbishing them to create more functional and enjoyable living spaces. These projects gave me a practical understanding of construction in Sweden and reinforced my ability to translate design ideas into built outcomes.</p>
+              <p>For the past two years, I have worked closely with an architect in London, playing a key role in establishing a new practice while delivering bespoke residential projects across the city. My involvement has included leading projects, coordinating with clients and consultants, and contributing across both design and technical delivery.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Krook & Tjäder -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2020<br>2021</div>
+          <div>
+            <p class="timeline-org">Krook &amp; Tjäder</p>
+            <p class="timeline-location">Halmstad, Sweden</p>
+            <p class="timeline-role">Arkitekt SAR/MSA</p>
+            <div class="timeline-desc">
+              <p>I had the opportunity to work with one of Sweden's largest architectural practices while being based in their Halmstad office, which had a more close-knit feel. It was both a challenge and a privilege to work in a new language and experience architecture in a different cultural and professional context.</p>
+              <p>My work focused mainly on the concept and planning stages, with projects ranging from large apartment developments to small house extensions and private villas. I was particularly interested in smaller, design-led projects, such as a holiday house in Båstad and an extension in Halmstad, where I could work more closely with clients and develop ideas in more detail.</p>
+              <p>Day to day the role was highly collaborative, working within a team to develop strong concepts and shared design goals. From preparing bygglov submissions to learning Swedish standards I gained a good understanding of how practice operates in Sweden. While working within these frameworks I was always interested in testing assumptions and pushing ideas to create more considered design.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lunds Universitet -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2017<br>2019</div>
+          <div>
+            <p class="timeline-org">Lunds Universitet</p>
+            <p class="timeline-location">Lund, Sweden</p>
+            <p class="timeline-role">Master of Architecture</p>
+            <div class="timeline-desc">
+              <p>I chose to expand both my architectural and personal education by studying in Scandinavia, to better understand the Swedish design process and way of thinking. Studio work in advanced architectural design included analysing a large area of Malmö as a group and developing our own brief in response to the questions we felt needed to be asked. This shifted my perspective from the scale of the house to that of the city and taught me how to design collaboratively and work with different ideas.</p>
+              <p>Alongside this I developed my understanding of architectural theory, structure and detailing, and material design, with regular presentations where we were expected to test, defend and refine our ideas.</p>
+              <p>The programme concluded with my master's thesis, where I explored the relationship between psychology and architecture, focusing on human-centred questions through design. I valued the freedom to explore my own direction as well as the process of sharing, testing and developing ideas within the group.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trace Architects -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2016<br>2019</div>
+          <div>
+            <p class="timeline-org">Trace Architects</p>
+            <p class="timeline-location">London, UK</p>
+            <p class="timeline-role">Part I Architectural Assistant</p>
+            <div class="timeline-desc">
+              <p>Working at a small design-led residential studio in London gave me exposure to the full breadth of architectural practice in the UK. I was involved across all stages of the RIBA Plan of Work 1 to 5, from early client meetings to explore ideas and aspirations, through to developing concepts, preparing planning and building control submissions, producing technical packages for construction and tendering, and supporting work on site to ensure the design was delivered accurately.</p>
+              <p>The experience was not only valuable in terms of process but also in understanding how a practice operates and how projects come together through collaboration. I worked closely with clients, planning consultants, building control officers, structural engineers, contractors and on some projects kitchen and interior designers. It reinforced the importance of clear communication and teamwork. Above all it was rewarding to see ideas come to life and to play a role in helping clients realise their vision.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liverpool -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2012<br>2015</div>
+          <div>
+            <p class="timeline-org">University of Liverpool</p>
+            <p class="timeline-location">Liverpool, UK</p>
+            <p class="timeline-role">Bachelor of Architecture (Hons) &nbsp;·&nbsp; 2:1</p>
+            <div class="timeline-desc">
+              <p>My studies at Liverpool focused on individual design development and hand drafting. Studio projects began at a small scale, such as outdoor public installations around the city and makers' houses, building an early understanding of briefs, design thinking and working with live clients.</p>
+              <p>Alongside this I developed a broader understanding of architectural history and theory, structures and construction, environmental science, integrated technical design and practice management. Over three years I learned to approach design problems through critical thinking and iterative development, supported by regular weekly critiques where ideas were tested, presented and refined.</p>
+              <p>This journey culminated in my degree project, the design of a transport hub and underground station in Liverpool's Baltic Triangle.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kimbolton -->
+        <div class="timeline-entry">
+          <div class="timeline-date">2004<br>2011</div>
+          <div>
+            <p class="timeline-org">Kimbolton School</p>
+            <p class="timeline-location">Cambridgeshire, UK</p>
+            <p class="timeline-role">A-Level &nbsp;·&nbsp; Maths, Physics, Art</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SOFTWARE SKILLS ── -->
+    <section class="ab-skills">
+      <div class="skills-inner">
+
+        <div class="skill-row" style="--level: 0.90">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Vectorworks.webp" alt="Vectorworks" style="height:63px;max-width:200px;">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.82">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/AutoCad.webp" alt="AutoCAD">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.68">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Affinity.webp" alt="Affinity">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.82">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Sketchup.webp" alt="SketchUp">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.62">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Adobe.webp" alt="Adobe">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.52">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Revit.webp" alt="Revit">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+        <div class="skill-row" style="--level: 0.75">
+          <div class="skill-side skill-side--left">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-logo">
+            <img src="Assets/AWRB/Software/Enscape.webp" alt="Enscape">
+          </div>
+          <div class="skill-side skill-side--right">
+            <div class="skill-bar"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Alexander Brown</span>
+  </footer>
+
+  </div><!-- /page-content -->
+
+  <script src="transitions.js"></script>
+  <script>
+    (function () {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.skill-row, .timeline-entry').forEach(function (el) {
+        observer.observe(el);
+      });
+    }());
+  </script>
+
+  <script>
+  (function () {
+
+    var FULL     = 'ALEXANDER BROWN';
+    var EASE     = 'cubic-bezier(0.76,0,0.24,1)';
+
+    var stage   = document.getElementById('intro-stage');
+    var intro   = document.getElementById('intro');
+    var content = document.getElementById('page-content');
+
+    // Read actual position of the site-title element so it works on all screen sizes
+    var siteTitle = document.querySelector('.site-title');
+    var titleRect = siteTitle ? siteTitle.getBoundingClientRect() : null;
+    var HEADER_H  = document.querySelector('.site-header') ? document.querySelector('.site-header').getBoundingClientRect().height : 54;
+    var MARGIN    = titleRect ? Math.round(titleRect.left) : 88;
+
+    // Hide the real title during animation to avoid flash when clone is removed
+    if (siteTitle) {
+      siteTitle.style.opacity = '0';
+      siteTitle.style.transition = 'none';
+    }
+
+    function wait(ms) {
+      return new Promise(function (r) { setTimeout(r, ms); });
+    }
+
+    // ── 1. Build letter spans, all invisible ──────────────────
+    var spans = [];
+    for (var i = 0; i < FULL.length; i++) {
+      var s = document.createElement('span');
+      s.className = 'intro-letter';
+      s.style.opacity = '0';
+      s.textContent = FULL[i] === ' ' ? '\u00A0' : FULL[i];
+      if (FULL[i] === ' ') s.style.width = '0.45ch';
+      stage.appendChild(s);
+      spans.push(s);
+    }
+
+    // ── 2. Typewriter: reveal each letter in sequence ─────────
+    wait(400)
+    .then(function () {
+      var chain = Promise.resolve();
+      spans.forEach(function (s) {
+        chain = chain.then(function () {
+          s.style.opacity = '1';
+          return wait(85);
+        });
+      });
+      return chain;
+    })
+
+    // ── 3. Pause, then slide letters right-to-left off stage ──
+    .then(function () { return wait(550); })
+    .then(function () {
+      var ps = [];
+      for (var i = 1; i < spans.length; i++) {
+        (function (span, d) {
+          ps.push(new Promise(function (r) {
+            setTimeout(function () {
+              span.style.transition = 'transform 0.38s ' + EASE + ', opacity 0.28s ease';
+              span.style.transform  = 'translateX(-55px)';
+              span.style.opacity    = '0';
+              setTimeout(r, 420);
+            }, d);
+          }));
+        })(spans[i], (spans.length - 1 - i) * 38);
+      }
+      return Promise.all(ps);
+    })
+
+    // ── 4. Swoop A to top-left ─────────────────────────────────
+    .then(function () { return wait(80); })
+    .then(function () {
+      var aRect = spans[0].getBoundingClientRect();
+
+      var clone = document.createElement('div');
+      clone.textContent = 'A';
+      clone.style.cssText = [
+        'position:fixed',
+        'top:'  + aRect.top  + 'px',
+        'left:' + aRect.left + 'px',
+        'font-family:Montserrat,"Helvetica Neue",Arial,sans-serif',
+        'font-size:12px',
+        'font-weight:700',
+        'letter-spacing:0.02em',
+        'text-transform:uppercase',
+        'color:#000',
+        'z-index:10000',
+        'pointer-events:none',
+        'white-space:nowrap',
+        'line-height:1',
+        'overflow:hidden'
+      ].join(';');
+
+      document.body.appendChild(clone);
+      spans[0].style.opacity = '0';
+      void clone.offsetWidth;
+
+      var targetTop = titleRect ? Math.round(titleRect.top + (titleRect.height - 12) / 2) : Math.round((HEADER_H - 12) / 2);
+      clone.style.transition = 'top 0.65s ' + EASE + ', left 0.65s ' + EASE;
+      clone.style.top  = targetTop + 'px';
+      clone.style.left = MARGIN   + 'px';
+
+      return wait(750).then(function () { return clone; });
+    })
+
+    // ── 5. Swish right: expand A → ALEXANDER BROWN ───────────
+    .then(function (clone) {
+      var aW = clone.getBoundingClientRect().width;
+      clone.style.width = aW + 'px';
+
+      clone.textContent = 'ALEXANDER BROWN';
+      var fullW = clone.scrollWidth;
+      void clone.offsetWidth;
+
+      clone.style.transition = 'width 0.6s ' + EASE;
+      clone.style.width = fullW + 'px';
+
+      return wait(700).then(function () { return clone; });
+    })
+
+    // ── 6. Reveal page, fade out intro overlay ────────────────
+    .then(function (clone) {
+      content.classList.add('revealed');
+      return wait(350).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      intro.style.transition = 'opacity 0.5s ease';
+      intro.style.opacity = '0';
+      return wait(500).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      // Fade real title in, then remove clone once it's fully visible
+      if (siteTitle) {
+        siteTitle.style.transition = 'opacity 0.3s ease';
+        siteTitle.style.opacity = '1';
+      }
+      return wait(300).then(function () { return clone; });
+    })
+    .then(function (clone) {
+      if (intro.parentNode)  intro.parentNode.removeChild(intro);
+      if (clone.parentNode)  clone.parentNode.removeChild(clone);
+    });
+
+  }());
+  </script>
+
+</body>
+</html>

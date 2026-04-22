@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Say Hi — Alexander Brown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.webp">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .contact-page {
+      min-height: calc(100vh - var(--header-h) - 60px);
+      padding: calc(var(--header-h) + 80px) var(--margin) 120px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .contact-inner {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .contact-title {
+      font-family: var(--display);
+      font-size: 88px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 56px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-family: var(--display);
+      font-size: var(--t-label);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .form-input,
+    .form-textarea {
+      font-family: var(--serif);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--black);
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      padding: 8px 0;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-bottom-color: var(--black);
+    }
+
+    .form-textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .form-submit {
+      margin-top: 8px;
+      align-self: flex-start;
+      font-family: var(--display);
+      font-size: var(--t-nav);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,0.28);
+      padding: 11px 22px;
+      color: var(--black);
+      background: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-submit:hover { border-color: var(--black); }
+
+    .form-submit:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .form-status {
+      font-family: var(--serif);
+      font-size: 12px;
+      line-height: 1.85;
+      color: rgba(0,0,0,0.70);
+      margin-top: 8px;
+      display: none;
+    }
+
+    .form-status.is-visible { display: block; }
+
+    @media (max-width: 600px) {
+      .contact-title { font-size: 48px; margin-bottom: 40px; }
+      .contact-form { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="site-title">Alexander Brown</a>
+    <nav class="site-nav">
+      <a href="works.html" class="nav-link">Works</a>
+      <a href="about.html" class="nav-link is-active">About</a>
+    </nav>
+  </header>
+
+  <main class="contact-page">
+    <div class="contact-inner">
+
+      <h1 class="contact-title">Say Hi</h1>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-field">
+          <label class="form-label" for="name">Name</label>
+          <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-textarea" id="message" name="message" required></textarea>
+        </div>
+
+        <button class="form-submit" type="submit" id="submit-btn">Send</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Alexander Brown</span>
+  </footer>
+
+  <script src="transitions.js"></script>
+  <script>
+    (function () {
+      var form   = document.getElementById('contact-form');
+      var btn    = document.getElementById('submit-btn');
+      var status = document.getElementById('form-status');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        status.classList.remove('is-visible');
+
+        fetch('https://formspree.io/f/mnjlglop', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            btn.textContent = 'Sent';
+            status.textContent = 'Thank you — your message has been received.';
+            status.classList.add('is-visible');
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Send';
+          status.textContent = 'Something went wrong. Please try again.';
+          status.classList.add('is-visible');
+        });
+      });
+    }());
+  </script>
+
+</body>
+</html>

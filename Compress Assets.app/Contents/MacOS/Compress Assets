@@ -1,0 +1,6 @@
+#!/bin/bash
+SCRIPT_DIR="$(dirname "$0")/../../../"
+osascript -e 'tell application "Terminal"
+    activate
+    do script "cd '"'"'/Users/alexanderbrown/Claude/Portfolio Website '"'"' && ./compress_assets.sh && echo \"\n✅ Done! Press any key to close.\" && read -n 1"
+end tell'
