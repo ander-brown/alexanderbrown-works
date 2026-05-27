@@ -15,31 +15,34 @@
     .hero-media { align-self: start; margin-top: 0; }
     .hero-media video { height: auto; }
 
-    /* Move sketch + text into sticky sidebar — hide the old positions */
+    /* Hide original sketch slot and overlay — handled in sidebar */
     .hero-sketch-item { display: none; }
     .project-overlay  { display: none !important; }
 
-    /* Remove default sidebar top padding so sticky top matches original overlay */
     .page-sidebar { padding-top: 0; }
 
-    /* Sticky wrapper inside col 3 sidebar */
-    .sidebar-sticky-inner {
-      position: sticky;
-      top: calc(var(--header-h) + 80px);
+    /* Sticky text — sits on top of the sketch as it scrolls past */
+    .sidebar-sticky {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      position: sticky;
+      top: calc(var(--header-h) + 80px);
+      padding-bottom: 24px;
+      z-index: 2;
     }
 
-    .sidebar-sticky-inner .sketch-img {
+    /* Sketch scrolls in normal flow behind the pinned text */
+    .sketch-img {
       width: 100%;
       height: auto;
       display: block;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Reset to static on tablet and below */
     @media (max-width: 900px) {
-      .sidebar-sticky-inner { position: static; }
+      .sidebar-sticky { position: static; }
     }
   </style>
 </head>
@@ -94,8 +97,8 @@
 
       <!-- Material study -->
       <div class="project-block">
-        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG Material 2.webp">
-          <img src="Assets/Pivot/HG Material 2.webp" alt="Material study" loading="lazy">
+        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG Material 3.webp">
+          <img src="Assets/Pivot/HG Material 3.webp" alt="Material study" loading="lazy">
         </div>
       </div>
 
@@ -141,17 +144,45 @@
         </div>
       </div>
 
+      <!-- Interior — library 2 -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG photo internal library 2.webp">
+          <img src="Assets/Pivot/HG photo internal library 2.webp" alt="Interior — library 2" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Interior — library 3 -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG photo internal library 3.webp">
+          <img src="Assets/Pivot/HG photo internal library 3.webp" alt="Interior — library 3" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Interior — living -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG photo internal living.webp">
+          <img src="Assets/Pivot/HG photo internal living.webp" alt="Interior — living" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Garden -->
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Pivot/HG photo garden.webp">
+          <img src="Assets/Pivot/HG photo garden.webp" alt="Garden" loading="lazy">
+        </div>
+      </div>
+
     </main>
 
-    <!-- Col 3: sticky text + sketch -->
+    <!-- Col 3: sticky text, sketch scrolls behind -->
     <aside class="page-sidebar">
-      <div class="sidebar-sticky-inner">
+      <div class="sidebar-sticky">
         <p class="sidebar-text">
           Designed for a young family of four, this project transforms the ground
           and semi-basement levels of a London terrace into a brighter, more
           connected home centred around everyday family life. The brief was to turn
           the lower ground floor into a place the family actually wanted to spend
-          time in — not just a secondary space, but the heart of the house. A glazed
+          time in, not just a secondary space but the heart of the house. A glazed
           opening was introduced within the existing structure, pulling daylight deep
           into the plan and creating a generous double-height volume.
         </p>
@@ -162,8 +193,8 @@
           move through, with the basement no longer hidden but fully integrated
           into daily life.
         </p>
-        <img class="sketch-img" src="Assets/Pivot/Pivot Client.webp" alt="Client sketch">
       </div>
+      <img class="sketch-img" src="Assets/Pivot/Pivot Client.webp" alt="Client sketch">
     </aside>
 
   </div>
