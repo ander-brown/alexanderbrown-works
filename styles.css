@@ -76,6 +76,8 @@ img, video {
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .site-nav {
