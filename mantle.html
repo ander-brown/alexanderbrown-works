@@ -103,7 +103,7 @@
       </div>
 
       <div class="project-block">
-        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Plans.webp">
+        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Plans.webp" data-wide="true">
           <img src="Assets/Mantle/Hv Plans.webp" alt="Plans" loading="lazy">
         </div>
       </div>
@@ -115,8 +115,20 @@
       </div>
 
       <div class="project-block">
-        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Model.jpg">
-          <img src="Assets/Mantle/Hv Model.jpg" alt="Model" loading="lazy">
+        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Model.webp">
+          <img src="Assets/Mantle/Hv Model.webp" alt="Model" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Model 2.webp">
+          <img src="Assets/Mantle/Hv Model 2.webp" alt="Model 2" loading="lazy">
+        </div>
+      </div>
+
+      <div class="project-block">
+        <div class="img-block" data-type="img" data-src="Assets/Mantle/Hv Model 3.webp">
+          <img src="Assets/Mantle/Hv Model 3.webp" alt="Model 3" loading="lazy">
         </div>
       </div>
 
@@ -176,7 +188,7 @@
       var current = 0;
 
       var items = blocks.map(function (b) {
-        return { type: b.getAttribute('data-type'), src: b.getAttribute('data-src') };
+        return { type: b.getAttribute('data-type'), src: b.getAttribute('data-src'), wide: b.hasAttribute('data-wide') };
       });
 
       function open(idx) {
@@ -197,9 +209,15 @@
       function render() {
         wrap.innerHTML = '';
         var item = items[current];
+        var maxW = item.wide ? '88vw' : '58vw';
+        var maxH = item.wide ? '88vh' : '62vh';
+        wrap.style.maxWidth  = maxW;
+        wrap.style.maxHeight = maxH;
         if (item.type === 'video') {
           var vid = document.createElement('video');
           vid.className   = 'lightbox__video';
+          vid.style.maxWidth  = maxW;
+          vid.style.maxHeight = maxH;
           vid.autoplay    = true;
           vid.muted       = true;
           vid.loop        = true;
@@ -212,6 +230,8 @@
         } else {
           var img = document.createElement('img');
           img.className = 'lightbox__img';
+          img.style.maxWidth  = maxW;
+          img.style.maxHeight = maxH;
           img.src = item.src;
           wrap.appendChild(img);
         }
