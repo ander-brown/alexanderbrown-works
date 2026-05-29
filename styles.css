@@ -6,8 +6,6 @@
 /* ── Reset ────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Custom cursor ────────────────────────────────────────── */
-
 /* ── Variables ────────────────────────────────────────────── */
 :root {
   --black:    #000;
@@ -321,7 +319,7 @@ img, video {
 
 /* — Image / video blocks — */
 .img-block {
-  cursor: zoom-in;
+  cursor: default;
   background: var(--white);
   line-height: 0;
 }
