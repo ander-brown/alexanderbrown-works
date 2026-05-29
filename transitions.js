@@ -1,25 +1,4 @@
 (function () {
-
-  // ── Custom cursor ──────────────────────────────────────────
-  var cursorEl = document.createElement('div');
-  cursorEl.id = 'ab-cursor';
-  cursorEl.innerHTML = '<img src="Assets/Ander A Green.svg" alt="">';
-  document.body.appendChild(cursorEl);
-
-  var cursorVisible = false;
-  document.addEventListener('mousemove', function (e) {
-    cursorEl.style.left = e.clientX + 'px';
-    cursorEl.style.top  = e.clientY + 'px';
-    if (!cursorVisible) { cursorEl.style.opacity = '1'; cursorVisible = true; }
-  });
-  document.addEventListener('mouseleave', function () {
-    cursorEl.style.opacity = '0';
-    cursorVisible = false;
-  });
-
-}());
-
-(function () {
   var DURATION = 650;
 
   // ENTER: ensure page is visible (fixes white page on back-button)
