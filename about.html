@@ -142,10 +142,13 @@
 
     /* ── Selected Works button ── */
     .ab-works-cta {
-      max-width: 680px;
+      max-width: 800px;
       width: 100%;
       margin: 72px auto 0;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       opacity: 0;
       animation: fadeUp 1s ease 1.4s forwards;
     }
@@ -363,6 +366,14 @@
     }
 
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y924L1Q8S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1Y924L1Q8S');
+  </script>
 </head>
 <body>
 
@@ -411,6 +422,7 @@
       <div class="ab-works-cta">
         <a href="works.html" class="ab-works-btn">Selected Works</a>
         <a href="contact.html" class="ab-works-btn">Get in touch</a>
+        <a href="Portfolio 2026 AWRB.pdf" download="Alexander Brown - Portfolio 2026.pdf" class="ab-works-btn" onclick="gtag('event', 'file_download', {file_name: 'Portfolio 2026 AWRB.pdf', link_text: 'Download PDF Sample'})">Download PDF Sample</a>
       </div>
 
       <p class="ab-section-label">Background</p>
