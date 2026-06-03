@@ -16,36 +16,36 @@
     .page-layout { grid-template-columns: 2fr 3fr 240px; }
 
     /* align-self: start means min-height sets the actual row height.
-       Video is pinned to the container bottom so video-bottom = row-bottom = sketch-bottom. */
+       Video fills full container height so top aligns with sidebar text. */
     .hero-media {
       align-self: start;
       position: relative;
-      min-height: 700px;
-      transform: translateY(60px);
+      min-height: clamp(480px, 70vh, 850px);
+      transform: translateY(48px);
       overflow: visible;
     }
     .hero-media video {
       position: absolute;
+      top: 0;
       bottom: 0;
       right: 0;
       width: 120%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* Sidebar text starts above sketch */
-    .page-sidebar { padding-top: 80px; }
-
     /* Move sketch down to align its bottom with the video's visual bottom */
-    .hero-sketch-item { transform: translateY(60px); }
+    .hero-sketch-item { transform: translateY(48px); }
 
     /* Sidebar text sticky through the full masonry scroll */
     .sidebar-sticky {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      position: sticky;
-      top: calc(var(--header-h) + 80px);
     }
+
+    /* Sidebar text starts above sketch */
+    .page-sidebar { padding-top: 80px; }
 
     /* Gap before the image grid */
     .project-grid { margin-top: 240px; }
@@ -88,7 +88,7 @@
     <!-- Row 2, col 2: landscape video -->
     <div class="hero-media">
       <video autoplay muted loop playsinline>
-        <source src="Assets/Louvre/B Time Lapse.mp4" type="video/mp4">
+        <source src="Assets/Louvre/B Time Lapse 2.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -173,8 +173,8 @@
       </div>
 
       <div class="project-block">
-        <div class="img-block" data-type="img" data-src="Assets/Louvre/B Photo Front.jpg">
-          <img src="Assets/Louvre/B Photo Front.jpg" alt="Front elevation">
+        <div class="img-block" data-type="img" data-src="Assets/Louvre/B photo front 2.webp">
+          <img src="Assets/Louvre/B photo front 2.webp" alt="Front elevation">
         </div>
       </div>
 

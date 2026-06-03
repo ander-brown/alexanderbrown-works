@@ -20,16 +20,18 @@
     .hero-media {
       align-self: start;
       position: relative;
-      min-height: 700px;
+      min-height: clamp(480px, 70vh, 850px);
       transform: translateY(-28px);
       overflow: visible;
     }
     .hero-media video {
       position: absolute;
+      top: 0;
       bottom: 0;
       right: 0;
       width: 120%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* Sidebar text sticky through the full masonry scroll */
@@ -37,9 +39,9 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      position: sticky;
-      top: calc(var(--header-h) + 80px);
     }
+
+    .page-sidebar { grid-row: 2 / span 3; padding-top: 0; transform: translateY(-28px); }
 
     /* Gap before the image grid */
     .project-grid { margin-top: 240px; }

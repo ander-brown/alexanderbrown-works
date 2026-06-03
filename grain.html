@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .hero-media { align-self: start; margin-top: 0; }
-    .hero-media video { height: auto; }
+    .hero-media video { height: 700px; width: auto; }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y924L1Q8S"></script>
@@ -54,7 +54,7 @@
     <!-- Row 2, col 2: portrait video — sets hero row height -->
     <div class="hero-media">
       <video autoplay muted loop playsinline>
-        <source src="Assets/Grain/K Time Lapse.mp4" type="video/mp4">
+        <source src="Assets/Grain/K Time Lapse 2.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -188,20 +188,18 @@
 
     </main>
 
-    <!-- Col 3 placeholder keeps grid structure intact -->
-    <aside class="page-sidebar"></aside>
+    <!-- Col 3: project text — static, sits alongside hero section -->
+    <aside class="page-sidebar">
+      <p class="sidebar-text">
+        Designed as both a personal project and a prototype for future homes, this compact Malmö apartment reworks a typical 1.5-room layout to better suit young professionals. The approach focused on small, precise interventions to unlock the potential of the existing plan. The kitchen was relocated to allow for a separate bedroom, creating a clearer distinction between living and private spaces within a limited footprint.
+      </p>
+      <p class="sidebar-text">
+        The bathroom was reconfigured into a compact, efficient shower room with integrated laundry, while a series of subtle spatial adjustments improve everyday use. A sliding bedroom door reduces wasted space, the bathroom door helps define a small entrance zone, and additional storage is carefully integrated into the plan. The result is a modest but highly liveable apartment, where careful planning and restrained detailing significantly improve the quality of daily life.
+      </p>
+    </aside>
 
   </div>
 
-  <!-- Project text overlay — direct body child so it sits fixed in the viewport -->
-  <div class="project-overlay" id="project-overlay">
-    <p class="sidebar-text">
-      Designed as both a personal project and a prototype for future homes, this compact Malmö apartment reworks a typical 1.5-room layout to better suit young professionals. The approach focused on small, precise interventions to unlock the potential of the existing plan. The kitchen was relocated to allow for a separate bedroom, creating a clearer distinction between living and private spaces within a limited footprint.
-    </p>
-    <p class="sidebar-text">
-      The bathroom was reconfigured into a compact, efficient shower room with integrated laundry, while a series of subtle spatial adjustments improve everyday use. A sliding bedroom door reduces wasted space, the bathroom door helps define a small entrance zone, and additional storage is carefully integrated into the plan. The result is a modest but highly liveable apartment, where careful planning and restrained detailing significantly improve the quality of daily life.
-    </p>
-  </div>
 
   <footer class="site-footer">
     <span>© 2026 Alexander Brown</span>
@@ -221,19 +219,6 @@
 
   <script src="masonry.js"></script>
   <script src="transitions.js"></script>
-  <script>
-    /* Hide overlay once masonry has fully scrolled past */
-    (function () {
-      var overlay = document.getElementById('project-overlay');
-      var grid    = document.querySelector('.project-grid');
-      function tick() {
-        var bottom = grid.getBoundingClientRect().bottom;
-        overlay.style.opacity = bottom > 0 ? '1' : '0';
-      }
-      window.addEventListener('scroll', tick, { passive: true });
-      tick();
-    }());
-  </script>
   <script>
     (function () {
       var blocks  = Array.from(document.querySelectorAll('.project-grid .img-block'))

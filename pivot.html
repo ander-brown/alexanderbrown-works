@@ -13,23 +13,20 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .hero-media { align-self: start; margin-top: 0; }
-    .hero-media video { height: auto; }
+    .hero-media video { height: 700px; width: auto; }
 
     /* Hide original sketch slot and overlay — handled in sidebar */
     .hero-sketch-item { display: none; }
     .project-overlay  { display: none !important; }
 
-    .page-sidebar { padding-top: 0; }
+    .page-sidebar { grid-row: 2 / span 3; padding-top: 0; }
 
     /* Sticky text — sits on top of the sketch as it scrolls past */
     .sidebar-sticky {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      position: sticky;
-      top: calc(var(--header-h) + 80px);
       padding-bottom: 24px;
-      z-index: 2;
     }
 
     /* Sketch scrolls in normal flow behind the pinned text */
