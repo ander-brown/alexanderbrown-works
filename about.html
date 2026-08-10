@@ -118,7 +118,7 @@
 
     .ab-info__line {
       font-family: var(--sans);
-      font-size: var(--t-meta);
+      font-size: 9.5px;
       letter-spacing: 0.03em;
       color: var(--gray);
       line-height: 1.6;
@@ -128,6 +128,15 @@
       font-size: var(--t-caption);
       color: rgba(0,0,0,0.35);
       letter-spacing: 0.04em;
+    }
+
+    .ab-info__logo {
+      height: 17.06px;
+      width: auto;
+      align-self: flex-start;
+      display: block;
+      opacity: 0.55;
+      margin-top: 2px;
     }
 
     .ab-bio p {
@@ -185,7 +194,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-family: var(--display);
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 400;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -221,7 +230,7 @@
 
     .timeline-date {
       font-family: var(--display);
-      font-size: var(--t-meta);
+      font-size: 9.5px;
       font-weight: 400;
       letter-spacing: 0.03em;
       color: var(--gray);
@@ -229,9 +238,30 @@
       line-height: 1.7;
     }
 
+    .timeline-org-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 3px;
+    }
+
+    .timeline-org-row .timeline-org {
+      margin-bottom: 0;
+    }
+
+    .timeline-org-logo {
+      height: 26.25px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+
     .timeline-org {
       font-family: var(--display);
-      font-size: var(--t-label);
+      font-size: 10.5px;
       font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
@@ -240,7 +270,7 @@
 
     .timeline-location {
       font-family: var(--sans);
-      font-size: var(--t-meta);
+      font-size: 9.5px;
       color: var(--gray);
       letter-spacing: 0.03em;
       margin-bottom: 16px;
@@ -248,7 +278,7 @@
 
     .timeline-role {
       font-family: var(--display);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 500;
       letter-spacing: 0.03em;
       color: rgba(0,0,0,0.70);
@@ -257,7 +287,7 @@
 
     .timeline-qual {
       font-family: var(--display);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 400;
       letter-spacing: 0.03em;
       color: var(--gray);
@@ -265,13 +295,33 @@
 
     .timeline-desc {
       font-family: var(--serif);
-      font-size: 11.5px;
+      font-size: 12px;
       line-height: 1.9;
       color: rgba(0,0,0,0.65);
       text-align: justify;
     }
 
     .timeline-desc p + p { margin-top: 1.1em; }
+
+    .timeline-link {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.28);
+      padding-bottom: 1px;
+      margin-top: 18px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .timeline-link:hover {
+      color: var(--black);
+      border-color: var(--black);
+    }
 
     /* ══════════════════════════════════════════════════════
        SOFTWARE SKILLS
@@ -406,8 +456,8 @@
         <div class="ab-hero__content">
 
           <div class="ab-info">
-            <span class="ab-info__line" style="font-weight:700;font-size:11px;">Alexander Brown SAR</span>
-            <span class="ab-info__line ab-info__line--sub">(Sveriges Arkitekter)</span>
+            <span class="ab-info__line" style="font-weight:700;font-size:11.5px;">Alexander Brown SAR</span>
+            <img class="ab-info__logo" src="Assets/AWRB/Logos/sveriges-arkitekter-trimmed.png" alt="Sveriges Arkitekter">
           </div>
 
           <div class="ab-bio">
@@ -452,13 +502,17 @@
         <div class="timeline-entry">
           <div class="timeline-date">2020<br>2021</div>
           <div>
-            <p class="timeline-org">Krook &amp; Tjäder</p>
+            <div class="timeline-org-row">
+              <p class="timeline-org">Krook &amp; Tjäder</p>
+              <img class="timeline-org-logo" src="Assets/AWRB/Logos/Logotyp_90Svart.png" alt="Krook & Tjäder">
+            </div>
             <p class="timeline-location">Halmstad, Sweden</p>
             <p class="timeline-role">Arkitekt SAR/MSA</p>
             <div class="timeline-desc">
               <p>I had the opportunity to work with one of Sweden's largest architectural practices while being based in their Halmstad office, which had a more close-knit feel. It was both a challenge and a privilege to work in a new language and experience architecture in a different cultural and professional context.</p>
               <p>My work focused mainly on the concept and planning stages, with projects ranging from large apartment developments to small house extensions and private villas. I was particularly interested in smaller, design-led projects, such as a holiday house in Båstad and an extension in Halmstad, where I could work more closely with clients and develop ideas in more detail.</p>
               <p>Day to day the role was highly collaborative, working within a team to develop strong concepts and shared design goals. From preparing bygglov submissions to learning Swedish standards I gained a good understanding of how practice operates in Sweden. While working within these frameworks I was always interested in testing assumptions and pushing ideas to create more considered design.</p>
+              <a class="timeline-link" href="https://www.krooktjader.se/en" target="_blank" rel="noopener">Visit Website ↗</a>
             </div>
           </div>
         </div>
@@ -482,12 +536,16 @@
         <div class="timeline-entry">
           <div class="timeline-date">2016<br>2019</div>
           <div>
-            <p class="timeline-org">Trace Architects</p>
+            <div class="timeline-org-row">
+              <p class="timeline-org">Trace Architects</p>
+              <img class="timeline-org-logo" src="Assets/AWRB/Logos/trace-architects-trimmed.png" alt="Trace Architects">
+            </div>
             <p class="timeline-location">London, UK</p>
             <p class="timeline-role">Part I Architectural Assistant</p>
             <div class="timeline-desc">
               <p>Working at a small design-led residential studio in London gave me exposure to the full breadth of architectural practice in the UK. I was involved across all stages of the RIBA Plan of Work 1 to 5, from early client meetings to explore ideas and aspirations, through to developing concepts, preparing planning and building control submissions, producing technical packages for construction and tendering, and supporting work on site to ensure the design was delivered accurately.</p>
               <p>The experience was not only valuable in terms of process but also in understanding how a practice operates and how projects come together through collaboration. I worked closely with clients, planning consultants, building control officers, structural engineers, contractors and on some projects kitchen and interior designers. It reinforced the importance of clear communication and teamwork. Above all it was rewarding to see ideas come to life and to play a role in helping clients realise their vision.</p>
+              <a class="timeline-link" href="https://tracearchitects.format.com/house-in-surrey" target="_blank" rel="noopener">Visit Website ↗</a>
             </div>
           </div>
         </div>
