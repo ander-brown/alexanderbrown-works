@@ -39,10 +39,12 @@
       gap: 20px;
     }
 
-    .page-sidebar { grid-row: 2 / span 3; padding-top: 0; transform: translateY(-28px); }
+    @media (min-width: 901px) {
+      .page-sidebar { grid-row: 2 / span 3; padding-top: 0; transform: translateY(-28px); }
 
-    /* Gap before the image grid */
-    .project-grid { margin-top: 240px; }
+      /* Gap before the image grid */
+      .project-grid { margin-top: 240px; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y924L1Q8S"></script>

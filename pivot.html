@@ -19,7 +19,9 @@
     .hero-sketch-item { display: none; }
     .project-overlay  { display: none !important; }
 
-    .page-sidebar { grid-row: 2 / span 3; padding-top: 0; }
+    @media (min-width: 901px) {
+      .page-sidebar { grid-row: 2 / span 3; padding-top: 0; }
+    }
 
     /* Sticky text — sits on top of the sketch as it scrolls past */
     .sidebar-sticky {
@@ -40,6 +42,11 @@
 
     @media (max-width: 900px) {
       .sidebar-sticky { position: static; }
+    }
+
+    /* Tablet and below: match other project pages — sketch removed, text flows to the bottom */
+    @media (max-width: 900px) {
+      .sketch-img { display: none !important; }
     }
   </style>
   <!-- Google tag (gtag.js) -->

@@ -21,10 +21,9 @@
       selector:     '.project-grid',
       itemSelector: '.project-block',
       rowAligned:   true,
-      getGap: function (w) { return w < 600 ? 48 : 140; },
+      getGap: function (w) { return w < 900 ? 48 : 140; },
       getCols: function (w) {
-        if (w < 600) return 1;
-        if (w < 900) return 2;
+        if (w < 900) return 1;
         return 3;
       }
     },

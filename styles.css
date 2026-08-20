@@ -556,22 +556,35 @@ img, video {
   .hero-meta-bar { grid-column: 1; grid-row: auto; }
   .hero-left     { grid-column: 1; grid-row: auto; }
 
+  /* Reset ALL per-page video overrides — min-height, transform,
+     position:absolute, width:120%, fixed pixel heights, etc. —
+     so the video sits naturally instead of cropping as the
+     container resizes through the tablet range. */
   .hero-media {
     grid-column: 1;
     grid-row: auto;
-    min-height: auto;
-    height: 60vw;
-    align-self: auto;
-    margin-top: 24px;
+    position: static !important;
+    min-height: unset !important;
+    height: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+    align-self: auto !important;
+    margin-top: 24px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .hero-media video,
+  .hero-media img {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    bottom: auto !important;
+    right: auto !important;
   }
 
-  .hero-sketch-item {
-    grid-column: 1;
-    grid-row: auto;
-    align-self: auto;
-    margin-top: 24px;
-    max-width: 160px;
-  }
+  /* Client sketches removed below tablet width */
+  .hero-sketch-item { display: none !important; }
 
   .project-grid {
     grid-column: 1;
@@ -624,9 +637,6 @@ img, video {
     padding-right: 0 !important;
   }
 
-  /* Hide client sketches */
-  .hero-sketch-item { display: none !important; }
-
   /* Meta — one line, small enough to fit without wrapping */
   .hero-meta-bar { padding-bottom: 12px; }
   .hero-meta {
@@ -647,29 +657,9 @@ img, video {
     letter-spacing: -0.01em;
   }
 
-  /* ── Hero video: reset ALL per-page overrides ──
-     min-height, transform, position:absolute, width:120%
-     are all cancelled so the video sits naturally */
-  .hero-media {
-    position: static !important;
-    min-height: unset !important;
-    height: auto !important;
-    transform: none !important;
-    overflow: visible !important;
-    margin-top: 28px !important;
-    align-self: auto !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-  .hero-media video,
-  .hero-media img {
-    position: static !important;
-    width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-    bottom: auto !important;
-    right: auto !important;
-  }
+  /* Hero video reset lives in the 900px block above and covers this
+     width too — just tighten the top spacing a touch further here. */
+  .hero-media { margin-top: 28px !important; }
 
   /* ── Project text: pull out of fixed overlay, flow naturally ── */
   .project-overlay {

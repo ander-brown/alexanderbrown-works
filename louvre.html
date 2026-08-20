@@ -47,8 +47,10 @@
     /* Sidebar text starts above sketch */
     .page-sidebar { padding-top: 80px; }
 
-    /* Gap before the image grid */
-    .project-grid { margin-top: 240px; }
+    /* Gap before the image grid — desktop only */
+    @media (min-width: 901px) {
+      .project-grid { margin-top: 240px; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y924L1Q8S"></script>
