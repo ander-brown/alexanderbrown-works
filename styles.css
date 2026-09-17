@@ -33,7 +33,11 @@
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
+/* Lock the site to light mode — ignore the visitor's OS/browser
+   dark-mode preference so the background never flips to black. */
 html {
+  color-scheme: light only;
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
